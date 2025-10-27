@@ -17,9 +17,9 @@ repositories {
 		name = "ParchmentMC"
 		url = "https://maven.parchmentmc.org/"
 	}
-	maven {
-		url = 'https://ladysnake.jfrog.io/artifactory/mods'
-    }
+//	maven {
+//		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+//    }
 	maven {
 		url = 'https://jitpack.io'
     }

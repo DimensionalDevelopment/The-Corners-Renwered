@@ -14,8 +14,7 @@ import net.minecraft.world.level.Level;
 
 public class CorvusEntity extends Mob implements FlyingAnimal {
 
-	public static final EntityDataSerializer<CorvusPose> CORVUS_POSE_DATA_HANDLER = EntityDataSerializer
-		.simpleEnum(CorvusPose.class);
+	public static final EntityDataSerializer<CorvusPose> CORVUS_POSE_DATA_HANDLER = EntityDataSerializer.forValueType(CorvusPose.STREAM_CODEC);
 	public static final EntityDataAccessor<CorvusPose> CORVUS_POSE = SynchedEntityData
 		.defineId(CorvusEntity.class, CORVUS_POSE_DATA_HANDLER);
 	public AnimationState restingAnimation = new AnimationState();
@@ -29,10 +28,11 @@ public class CorvusEntity extends Mob implements FlyingAnimal {
 		return Mob.createMobAttributes();
 	}
 
-	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(CORVUS_POSE, CorvusPose.SITTING);
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+		builder.define(CORVUS_POSE, CorvusPose.SITTING);
 	}
 
 	@Override

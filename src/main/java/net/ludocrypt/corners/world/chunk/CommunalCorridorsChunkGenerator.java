@@ -1,8 +1,8 @@
 package net.ludocrypt.corners.world.chunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.block.RadioBlock;
@@ -19,10 +19,8 @@ import net.ludocrypt.limlib.api.world.maze.MazeComponent.CellState;
 import net.ludocrypt.limlib.api.world.maze.MazeComponent.Vec2i;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ChunkHolder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ThreadedLevelLightEngine;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.BiomeSource;
@@ -33,21 +31,18 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.RandomState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.function.Function;
 
 public class CommunalCorridorsChunkGenerator extends AbstractNbtChunkGenerator {
 
-	public static final Codec<CommunalCorridorsChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> {
+	public static final MapCodec<CommunalCorridorsChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
 		return instance.group(BiomeSource.CODEC.fieldOf("biome_source").stable().forGetter((chunkGenerator) -> {
 			return chunkGenerator.biomeSource;
 		}), NbtGroup.CODEC.fieldOf("group").stable().forGetter((chunkGenerator) -> {
@@ -131,7 +126,7 @@ public class CommunalCorridorsChunkGenerator extends AbstractNbtChunkGenerator {
 	}
 
 	@Override
-	protected Codec<? extends ChunkGenerator> codec() {
+	protected MapCodec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
@@ -282,12 +277,8 @@ public class CommunalCorridorsChunkGenerator extends AbstractNbtChunkGenerator {
 		return maze;
 	}
 
-	@Override
-	public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ChunkStatus targetStatus, Executor executor,
-			ServerLevel world, ChunkGenerator generator, StructureTemplateManager structureTemplateManager,
-			ThreadedLevelLightEngine lightingProvider,
-			Function<ChunkAccess, CompletableFuture<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>> fullChunkConverter, List<ChunkAccess> chunks,
-			ChunkAccess chunk) {
+    @Override
+	public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel world, ChunkGenerator generator, ChunkAccess chunk) {
 		this.grandMazeGenerator
 			.generateMaze(new Vec2i(chunk.getPos().getWorldPosition()), region, this::newGrandMaze, this::decorateGrandCell);
 //		this.level2mazeGenerator
@@ -564,8 +555,10 @@ public class CommunalCorridorsChunkGenerator extends AbstractNbtChunkGenerator {
 		return 2;
 	}
 
+
+
 	@Override
-	protected ResourceLocation getContainerLootTable(RandomizableContainerBlockEntity container) {
+	protected ResourceKey<LootTable> getContainerLootTable(RandomizableContainerBlockEntity container) {
 		return container.getBlockState().is(Blocks.CHEST) ? BuiltInLootTables.WOODLAND_MANSION
 				: BuiltInLootTables.SPAWN_BONUS_CHEST;
 	}

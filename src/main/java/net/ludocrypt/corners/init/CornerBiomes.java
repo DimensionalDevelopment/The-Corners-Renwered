@@ -1,7 +1,6 @@
 package net.ludocrypt.corners.init;
 
-import com.mojang.serialization.Codec;
-
+import com.mojang.serialization.MapCodec;
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.world.chunk.CommunalCorridorsChunkGenerator;
 import net.ludocrypt.corners.world.chunk.HoaryCrossroadsChunkGenerator;
@@ -36,7 +35,7 @@ public class CornerBiomes {
 		get("hoary_crossroads_chunk_generator", HoaryCrossroadsChunkGenerator.CODEC);
 	}
 
-	public static <C extends ChunkGenerator, D extends Codec<C>> D get(String id, D chunkGeneratorCodec) {
+	public static <C extends ChunkGenerator, D extends MapCodec<C>> D get(String id, D chunkGeneratorCodec) {
 		return Registry.register(BuiltInRegistries.CHUNK_GENERATOR, TheCorners.id(id), chunkGeneratorCodec);
 	}
 

@@ -1,13 +1,7 @@
 package net.ludocrypt.corners.init;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
-
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Lifecycle;
-
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.client.render.StrongPostEffect;
 import net.ludocrypt.corners.world.biome.CommunalCorridorsBiome;
@@ -29,6 +23,7 @@ import net.ludocrypt.limlib.api.effects.sound.reverb.StaticReverbEffect;
 import net.ludocrypt.limlib.api.skybox.Skybox;
 import net.ludocrypt.limlib.api.skybox.TexturedSkybox;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -36,6 +31,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.FixedBiomeSource;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.DimensionType.MonsterSettings;
@@ -50,6 +46,10 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaPineFoliage
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 public class CornerWorlds implements LimlibRegistrar {
 
@@ -144,53 +144,27 @@ public class CornerWorlds implements LimlibRegistrar {
 						HoaryCrossroadsChunkGenerator.createGroup(), 16, 16, 4, 0))));
 
 		// Registries
-		WORLDS.forEach((pair) -> LimlibWorld.LIMLIB_WORLD.register(pair.getFirst(), pair.getSecond(), Lifecycle.stable()));
-		LimlibRegistryHooks
-			.hook(SoundEffects.SOUND_EFFECTS_KEY, (infoLookup, registryKey, registry) -> SOUND_EFFECTS
-				.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(), Lifecycle.stable())));
-		LimlibRegistryHooks
-			.hook(Skybox.SKYBOX_KEY, (infoLookup, registryKey, registry) -> SKYBOXES
-				.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(), Lifecycle.stable())));
-		LimlibRegistryHooks
-			.hook(DimensionEffects.DIMENSION_EFFECTS_KEY, (infoLookup, registryKey, registry) -> DIMENSION_EFFECTS
-				.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(), Lifecycle.stable())));
-		LimlibRegistryHooks
-			.hook(PostEffect.POST_EFFECT_KEY, (infoLookup, registryKey, registry) -> POST_EFFECTS
-				.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(), Lifecycle.stable())));
-		LimlibRegistryHooks.hook(Registries.BIOME, (infoLookup, registryKey, registry) -> {
+		WORLDS.forEach((pair) -> LimlibWorld.LIMLIB_WORLD.register(pair.getFirst(), pair.getSecond(), RegistrationInfo.BUILT_IN));
+		LimlibRegistryHooks.hook(SoundEffects.SOUND_EFFECTS_KEY, (LimlibRegistryHooks.LimlibRegistryHook<SoundEffects>) (infoLookup, registryKey, registry) -> SOUND_EFFECTS.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(),  RegistrationInfo.BUILT_IN)));
+		LimlibRegistryHooks.hook(Skybox.SKYBOX_KEY, (LimlibRegistryHooks.LimlibRegistryHook<Skybox>) (infoLookup, registryKey, registry) -> SKYBOXES.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(), RegistrationInfo.BUILT_IN)));
+		LimlibRegistryHooks.hook(DimensionEffects.DIMENSION_EFFECTS_KEY, (LimlibRegistryHooks.LimlibRegistryHook<DimensionEffects>) (infoLookup, registryKey, registry) -> DIMENSION_EFFECTS.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(),RegistrationInfo.BUILT_IN )));
+		LimlibRegistryHooks.hook(PostEffect.POST_EFFECT_KEY, (LimlibRegistryHooks.LimlibRegistryHook<PostEffect>) (infoLookup, registryKey, registry) -> POST_EFFECTS.forEach((pair) -> registry.register(pair.getFirst(), pair.getSecond(), RegistrationInfo.BUILT_IN)));
+		LimlibRegistryHooks.hook(Registries.BIOME, (LimlibRegistryHooks.LimlibRegistryHook<Biome>) (infoLookup, registryKey, registry) -> {
 			HolderGetter<PlacedFeature> features = infoLookup.lookup(Registries.PLACED_FEATURE).get().getter();
 			HolderGetter<ConfiguredWorldCarver<?>> carvers = infoLookup.lookup(Registries.CONFIGURED_CARVER).get().getter();
-			registry
-				.register(CornerBiomes.YEARNING_CANAL_BIOME, YearningCanalBiome.create(features, carvers),
-					Lifecycle.stable());
-			registry
-				.register(CornerBiomes.COMMUNAL_CORRIDORS_BIOME, CommunalCorridorsBiome.create(features, carvers),
-					Lifecycle.stable());
-			registry
-				.register(CornerBiomes.HOARY_CROSSROADS_BIOME, HoaryCrossroadsBiome.create(features, carvers),
-					Lifecycle.stable());
+			registry.register(CornerBiomes.YEARNING_CANAL_BIOME, YearningCanalBiome.create(features, carvers), RegistrationInfo.BUILT_IN);
+			registry.register(CornerBiomes.COMMUNAL_CORRIDORS_BIOME, CommunalCorridorsBiome.create(features, carvers), RegistrationInfo.BUILT_IN);registry.register(CornerBiomes.HOARY_CROSSROADS_BIOME, HoaryCrossroadsBiome.create(features, carvers), RegistrationInfo.BUILT_IN);
 		});
-		LimlibRegistryHooks.hook(Registries.FEATURE, (infoLookup, registryKey, registry) -> {
-			registry
-				.register(CornerBiomes.GAIA_TREE_FEATURE, new GaiaTreeFeature(NoneFeatureConfiguration.CODEC),
-					Lifecycle.stable());
-		});
-		LimlibRegistryHooks.hook(Registries.CONFIGURED_FEATURE, (infoLookup, registryKey, registry) -> {
-			registry
-				.register(CornerBiomes.CONFIGURED_GAIA_TREE_FEATURE,
-					new ConfiguredFeature<NoneFeatureConfiguration, GaiaTreeFeature>(
-						new GaiaTreeFeature(NoneFeatureConfiguration.CODEC), NoneFeatureConfiguration.INSTANCE),
-					Lifecycle.stable());
-			registry
-				.register(CornerBiomes.CONFIGURED_SAPLING_GAIA_TREE_FEATURE,
-					new ConfiguredFeature(Feature.TREE,
-						new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(CornerBlocks.GAIA_LOG),
-							new GiantTrunkPlacer(10, 5, 5), BlockStateProvider.simple(CornerBlocks.GAIA_LEAVES),
-							new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0),
-								UniformInt.of(8, 10)),
-							new TwoLayersFeatureSize(1, 1, 2)).build()),
-					Lifecycle.stable());
-		});
+		LimlibRegistryHooks.hook(Registries.FEATURE, (LimlibRegistryHooks.LimlibRegistryHook<Feature<?>>) (infoLookup, registryKey, registry) -> registry.register(CornerBiomes.GAIA_TREE_FEATURE, new GaiaTreeFeature(NoneFeatureConfiguration.CODEC), RegistrationInfo.BUILT_IN));
+		LimlibRegistryHooks.hook(Registries.CONFIGURED_FEATURE, (LimlibRegistryHooks.LimlibRegistryHook<ConfiguredFeature<?, ?>>) (registryInfoLookup, resourceKey, registry) -> {
+            registry.register(CornerBiomes.CONFIGURED_GAIA_TREE_FEATURE, new ConfiguredFeature<>(new GaiaTreeFeature(NoneFeatureConfiguration.CODEC), NoneFeatureConfiguration.INSTANCE), RegistrationInfo.BUILT_IN);
+            registry.register(CornerBiomes.CONFIGURED_SAPLING_GAIA_TREE_FEATURE, new ConfiguredFeature(Feature.TREE,
+                            new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(CornerBlocks.GAIA_LOG),
+                                    new GiantTrunkPlacer(10, 5, 5), BlockStateProvider.simple(CornerBlocks.GAIA_LEAVES),
+                                    new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(8, 10)),
+                                    new TwoLayersFeatureSize(1, 1, 2)).build()),
+                    RegistrationInfo.BUILT_IN);
+        });
 	}
 
 	private static <W extends LimlibWorld> W get(String id, W world) {

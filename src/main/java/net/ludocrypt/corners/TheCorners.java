@@ -39,7 +39,7 @@ public class TheCorners implements ModInitializer {
 	}
 
 	public static ResourceLocation id(String id) {
-		return new ResourceLocation("corners", id);
+		return ResourceLocation.fromNamespaceAndPath("corners", id);
 	}
 
 }

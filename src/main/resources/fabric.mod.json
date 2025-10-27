@@ -54,7 +54,7 @@
 	},
 	"depends": {
 		"fabricloader": "*",
-		"minecraft": "1.20.1",
+		"minecraft": "1.21.1",
 		"fabric-api": "*",
 		"limlib": "*",
 		"cloth-config": "*",

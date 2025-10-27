@@ -45,7 +45,7 @@ public class DeepBookshelfRenderer extends SpecialModelRenderer {
 
 		PoseStack basicStack = new PoseStack();
 		basicStack
-			.mulPoseMatrix(client.gameRenderer
+			.mulPose(client.gameRenderer
 				.getProjectionMatrix(((GameRendererAccessor) client.gameRenderer).callGetFov(camera, tickDelta, true)));
 
 		if (shader.getUniform("BasicMat") != null) {
