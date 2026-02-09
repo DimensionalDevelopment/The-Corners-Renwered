@@ -1,6 +1,10 @@
 package net.ludocrypt.corners;
 
 import net.fabricmc.api.ModInitializer;
+import net.ludocrypt.corners.world.feature.GaiaTreeFeature;
+import net.ludocrypt.limlib.api.LimLibRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,9 +37,9 @@ public class TheCorners implements ModInitializer {
 		CornerPaintings.init();
 		CornerSoundEvents.init();
 		CornerRadioRegistry.init();
-		CornerModelRenderers.init();
 		ClientToServerPackets.manageClientToServerPackets();
-		Registry.register(PostEffect.POST_EFFECT_CODEC, id("strong_shader"), StrongPostEffect.CODEC);
+		Registry.register(PostEffect.REGISTRY, id("strong_shader"), StrongPostEffect.CODEC);
+        Registry.register(BuiltInRegistries.FEATURE, CornerBiomes.GAIA_TREE_FEATURE, new GaiaTreeFeature(NoneFeatureConfiguration.CODEC));
 	}
 
 	public static ResourceLocation id(String id) {

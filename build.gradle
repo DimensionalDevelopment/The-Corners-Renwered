@@ -11,6 +11,12 @@ loom {
 	accessWidenerPath = file("src/main/resources/corners.accesswidener")
 }
 
+fabricApi {
+    configureDataGeneration {
+        modId = "corners"
+    }
+}
+
 repositories {
 	mavenLocal()
 	maven {
@@ -50,7 +56,7 @@ dependencies {
 
 	includeMod libs.shedaniel.cloth
 
-	includeMod libs.ludocrypt.specialmodels
+//	includeMod libs.ludocrypt.specialmodels
 	includeMod libs.ludocrypt.limlib
 
 }

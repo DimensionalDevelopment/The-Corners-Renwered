@@ -66,7 +66,7 @@ public class DimensionalPaintingEntity extends Painting {
 	public void playerTouch(Player player) {
 		super.playerTouch(player);
 
-        var variant = getVariant().unwrap().right().map(CornerPaintings.LOGICS::get).orElse(null);
+        var variant = getVariant().unwrapKey().map(CornerPaintings.LOGICS::get).orElse(null);
 
 		if (variant != null) {
 			AABB box = this.getBoundingBox().inflate(0.3D);

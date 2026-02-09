@@ -1,29 +1,20 @@
 package net.ludocrypt.corners.client.render;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import org.joml.Matrix4f;
-import org.joml.Vector4f;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.config.CornerConfig;
-import net.ludocrypt.specialmodels.api.SpecialModelRenderer;
-import net.ludocrypt.specialmodels.impl.render.MutableQuad;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.chunk.RenderChunkRegion;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec2;
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
 
-public class ChristmasRenderer extends SpecialModelRenderer {
+public class ChristmasRenderer implements ShaderCallback {
 
 	private final String id;
 
@@ -38,8 +29,7 @@ public class ChristmasRenderer extends SpecialModelRenderer {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void setup(PoseStack matrices, Matrix4f viewMatrix, Matrix4f positionMatrix, float tickDelta,
-			ShaderInstance shader, BlockPos origin) {
+	public void setup(ShaderInstance shader) {
 
 		if (CornerConfig.get().christmas.isChristmas()) {
 
@@ -117,17 +107,6 @@ public class ChristmasRenderer extends SpecialModelRenderer {
 			shader.getUniform("RotMat").set(matrix);
 		}
 
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public MutableQuad modifyQuad(RenderChunkRegion chunkRenderRegion, BlockPos pos, BlockState state, BakedModel model,
-			BakedQuad quadIn, long modelSeed, MutableQuad quad) {
-		quad.getV1().setUv(new Vec2(0.0F, 0.0F));
-		quad.getV2().setUv(new Vec2(0.0F, 1.0F));
-		quad.getV3().setUv(new Vec2(1.0F, 1.0F));
-		quad.getV4().setUv(new Vec2(1.0F, 0.0F));
-		return quad;
 	}
 
 	public static float[] hexToRGBA(String hex) {

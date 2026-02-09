@@ -3,7 +3,6 @@ package net.ludocrypt.corners.init;
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.entity.DimensionalPaintingEntity;
 import net.ludocrypt.corners.util.DimensionalPaintingTeleportLogic;
-import net.ludocrypt.limlib.api.LimlibRegistryHooks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.registries.Registries;
@@ -71,15 +70,6 @@ public class CornerPaintings {
                                         .subtract(new Vec3(player.getX() % 512.0D, player.getY(), player.getZ() % 512.0D))
                                         .add(256.0D, 263.0D, 0.0D)
                                         .add(4.0D, 0, 4.0D)));
-
-        LimlibRegistryHooks.hook(Registries.PAINTING_VARIANT, (LimlibRegistryHooks.LimlibRegistryHook<PaintingVariant>) (infoLookup, registryKey, registry) -> {
-            registry.register(OVERWORLD, new PaintingVariant(48, 48, TheCorners.id("overworld")), RegistrationInfo.BUILT_IN);
-            registry.register(OVERWORLD_THIN, new PaintingVariant(16, 32, TheCorners.id("overworld_thin")), RegistrationInfo.BUILT_IN);
-            registry.register(OVERWORLD_WIDE, new PaintingVariant(64, 32, TheCorners.id("overworld_wide")), RegistrationInfo.BUILT_IN);
-            registry.register(YEARNING_CANAL, new PaintingVariant(48, 48, TheCorners.id("yearning_canal")), RegistrationInfo.BUILT_IN);
-            registry.register(COMMUNAL_CORRIDORS, new PaintingVariant(32, 32, TheCorners.id("communal_corridors")), RegistrationInfo.BUILT_IN);
-            registry.register(HOARY_CROSSROADS, new PaintingVariant(32, 48, TheCorners.id("hoary_crossroads")), RegistrationInfo.BUILT_IN);
-        });
 	}
 
 	public static ResourceKey<PaintingVariant> get(String id) {

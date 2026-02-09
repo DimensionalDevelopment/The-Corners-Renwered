@@ -21,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 
@@ -100,9 +102,9 @@ public class HoaryCrossroadsChunkGenerator extends AbstractNbtChunkGenerator {
 		return CODEC;
 	}
 
-	@Override
-	public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel world, ChunkGenerator generator, ChunkAccess chunk) {
-		BlockPos startPos = chunk.getPos().getWorldPosition();
+    @Override
+    public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel serverLevel, ChunkGenerator generator, ChunkAccess chunk, Blender blender, RandomState randomState, StructureManager structureManager) {
+        BlockPos startPos = chunk.getPos().getWorldPosition();
 		this.mazeGenerator
 			.generateMaze(new Vec2i(startPos.getX(), startPos.getZ()), region, this::newMaze, this::decorateCell);
 		return CompletableFuture.completedFuture(chunk);

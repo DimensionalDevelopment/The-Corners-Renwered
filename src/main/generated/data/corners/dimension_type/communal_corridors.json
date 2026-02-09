@@ -1,0 +1,20 @@
+{
+  "ambient_light": 0.075,
+  "bed_works": true,
+  "coordinate_scale": 1.0,
+  "effects": "corners:communal_corridors",
+  "fixed_time": 23500,
+  "has_ceiling": false,
+  "has_raids": false,
+  "has_skylight": true,
+  "height": 256,
+  "infiniburn": "#corners:communal_corridors",
+  "logical_height": 256,
+  "min_y": 0,
+  "monster_spawn_block_light_limit": 0,
+  "monster_spawn_light_level": 0,
+  "natural": true,
+  "piglin_safe": false,
+  "respawn_anchor_works": false,
+  "ultrawarm": false
+}

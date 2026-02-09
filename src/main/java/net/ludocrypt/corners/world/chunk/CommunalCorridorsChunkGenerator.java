@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -278,8 +280,8 @@ public class CommunalCorridorsChunkGenerator extends AbstractNbtChunkGenerator {
 	}
 
     @Override
-	public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel world, ChunkGenerator generator, ChunkAccess chunk) {
-		this.grandMazeGenerator
+    public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel serverLevel, ChunkGenerator generator, ChunkAccess chunk, Blender blender, RandomState randomState, StructureManager structureManager) {
+        this.grandMazeGenerator
 			.generateMaze(new Vec2i(chunk.getPos().getWorldPosition()), region, this::newGrandMaze, this::decorateGrandCell);
 //		this.level2mazeGenerator
 //			.generateMaze(startPos, region.getSeed(), this::newMaze, (pos, mazePos, maze, cellState,
