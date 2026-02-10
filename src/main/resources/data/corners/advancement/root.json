@@ -1,7 +1,8 @@
 {
 	"display": {
 		"icon": {
-			"item": "minecraft:painting"
+          "count": 1,
+          "id": "minecraft:painting"
 		},
 		"title": {
 			"translate": "advancements.the_corners.root.title"

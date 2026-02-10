@@ -1,0 +1,118 @@
+{
+  "type": "corners:hoary_crossroads",
+  "generator": {
+    "type": "corners:hoary_crossroads_chunk_generator",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "corners:hoary_crossroads"
+    },
+    "group": {
+      "groups": {
+        "hoary_crossroads_f": [
+          "hoary_crossroads_f"
+        ],
+        "hoary_crossroads_f_bottom": [
+          "hoary_crossroads_f_bottom"
+        ],
+        "hoary_crossroads_f_decorated": [
+          "hoary_crossroads_f_decorated_1",
+          "hoary_crossroads_f_decorated_2",
+          "hoary_crossroads_f_decorated_3",
+          "hoary_crossroads_f_decorated_4",
+          "hoary_crossroads_f_decorated_5",
+          "hoary_crossroads_f_decorated_6",
+          "hoary_crossroads_f_decorated_7"
+        ],
+        "hoary_crossroads_f_rare": [
+          "hoary_crossroads_f_rare"
+        ],
+        "hoary_crossroads_i": [
+          "hoary_crossroads_i"
+        ],
+        "hoary_crossroads_i_bottom": [
+          "hoary_crossroads_i_bottom"
+        ],
+        "hoary_crossroads_i_decorated": [
+          "hoary_crossroads_i_decorated_1",
+          "hoary_crossroads_i_decorated_2",
+          "hoary_crossroads_i_decorated_3",
+          "hoary_crossroads_i_decorated_4",
+          "hoary_crossroads_i_decorated_5",
+          "hoary_crossroads_i_decorated_6",
+          "hoary_crossroads_i_decorated_7",
+          "hoary_crossroads_i_decorated_8",
+          "hoary_crossroads_i_decorated_9"
+        ],
+        "hoary_crossroads_i_rare": [
+          "hoary_crossroads_i_rare"
+        ],
+        "hoary_crossroads_l": [
+          "hoary_crossroads_l"
+        ],
+        "hoary_crossroads_l_bottom": [
+          "hoary_crossroads_l_bottom"
+        ],
+        "hoary_crossroads_l_decorated": [
+          "hoary_crossroads_l_decorated_1",
+          "hoary_crossroads_l_decorated_2",
+          "hoary_crossroads_l_decorated_3",
+          "hoary_crossroads_l_decorated_4",
+          "hoary_crossroads_l_decorated_5",
+          "hoary_crossroads_l_decorated_6",
+          "hoary_crossroads_l_decorated_7",
+          "hoary_crossroads_l_decorated_8",
+          "hoary_crossroads_l_decorated_9"
+        ],
+        "hoary_crossroads_l_rare": [
+          "hoary_crossroads_l_rare"
+        ],
+        "hoary_crossroads_nub": [
+          "hoary_crossroads_nub"
+        ],
+        "hoary_crossroads_nub_bottom": [
+          "hoary_crossroads_nub_bottom"
+        ],
+        "hoary_crossroads_nub_decorated": [
+          "hoary_crossroads_nub_decorated_1",
+          "hoary_crossroads_nub_decorated_2",
+          "hoary_crossroads_nub_decorated_3",
+          "hoary_crossroads_nub_decorated_4",
+          "hoary_crossroads_nub_decorated_5",
+          "hoary_crossroads_nub_decorated_6"
+        ],
+        "hoary_crossroads_nub_rare": [
+          "hoary_crossroads_nub_rare"
+        ],
+        "hoary_crossroads_obelisk": [
+          "hoary_crossroads_obelisk_1",
+          "hoary_crossroads_obelisk_2",
+          "hoary_crossroads_obelisk_3",
+          "hoary_crossroads_obelisk_4"
+        ],
+        "hoary_crossroads_t": [
+          "hoary_crossroads_t"
+        ],
+        "hoary_crossroads_t_bottom": [
+          "hoary_crossroads_t_bottom"
+        ],
+        "hoary_crossroads_t_decorated": [
+          "hoary_crossroads_t_decorated_1",
+          "hoary_crossroads_t_decorated_2",
+          "hoary_crossroads_t_decorated_3",
+          "hoary_crossroads_t_decorated_4",
+          "hoary_crossroads_t_decorated_5",
+          "hoary_crossroads_t_decorated_6",
+          "hoary_crossroads_t_decorated_7"
+        ],
+        "hoary_crossroads_t_rare": [
+          "hoary_crossroads_t_rare_1"
+        ]
+      },
+      "id": "corners:hoary_crossroads"
+    },
+    "maze_dilation": 4,
+    "maze_height": 16,
+    "maze_width": 16,
+    "seed_modifier": 0
+  }
+}

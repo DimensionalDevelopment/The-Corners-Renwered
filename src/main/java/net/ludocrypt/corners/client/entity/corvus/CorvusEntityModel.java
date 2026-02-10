@@ -174,10 +174,9 @@ public class CorvusEntityModel<T extends CorvusEntity> extends HierarchicalModel
 		this.main.getAllParts().forEach(ModelPart::resetPose);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green,
-			float blue, float alpha) {
-		this.main.render(matrices, vertices, light, overlay);
+    @Override
+	public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+		this.main.render(matrices, vertices, light, overlay, color);
 	}
 
 	@Override

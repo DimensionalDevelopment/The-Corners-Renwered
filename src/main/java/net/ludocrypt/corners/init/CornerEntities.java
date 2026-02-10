@@ -18,7 +18,7 @@ public class CornerEntities {
 		FabricEntityTypeBuilder
 			.create()
 			.entityFactory(DimensionalPaintingEntity::new)
-			.dimensions(new EntityDimensions(0.5F, 0.5F, false))
+			.dimensions(EntityDimensions.scalable(0.5F, 0.5F))
 			.trackRangeChunks(10)
 			.trackedUpdateRate(Integer.MAX_VALUE)
 			.build());
