@@ -2,13 +2,14 @@
 	"parent": "corners:root",
 	"display": {
 		"icon": {
-			"item": "corners:nylon_fiber_block"
+          "count": 1,
+          "id": "minecraft:white_stained_glass"
 		},
 		"title": {
-			"translate": "advancements.communal_corridors.root.title"
+			"translate": "advancements.yearning_canal.root.title"
 		},
 		"description": {
-			"translate": "advancements.communal_corridors.root.description"
+			"translate": "advancements.yearning_canal.root.description"
 		},
 		"frame": "task",
 		"show_toast": true,
@@ -16,16 +17,16 @@
 		"hidden": true
 	},
 	"criteria": {
-		"entered_communal_corridors": {
+		"entered_yearning_canal": {
 			"trigger": "minecraft:changed_dimension",
 			"conditions": {
-				"to": "corners:communal_corridors"
+				"to": "corners:yearning_canal"
 			}
 		}
 	},
 	"requirements": [
 		[
-			"entered_communal_corridors"
+			"entered_yearning_canal"
 		]
 	]
 }

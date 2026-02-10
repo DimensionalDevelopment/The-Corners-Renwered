@@ -1,0 +1,5 @@
+{
+  "type": "corners:strong_shader",
+  "fallback_shader_name": "corners:communal_corridors_fallback",
+  "shader_name": "corners:communal_corridors"
+}

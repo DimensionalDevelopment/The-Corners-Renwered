@@ -31,9 +31,9 @@
 		"modmenu": [
 			"net.ludocrypt.corners.config.CornerModmenu"
 		],
-		"limlib:registrar": [
-			"net.ludocrypt.corners.init.CornerWorlds"
-		]
+        "fabric-datagen": [
+          "net.ludocrypt.corners.datagen.CornersDatagen"
+        ]
 	},
 	"mixins": [
 		"corners.mixins.json"
@@ -54,10 +54,9 @@
 	},
 	"depends": {
 		"fabricloader": "*",
-		"minecraft": "1.20.1",
+		"minecraft": "1.21.1",
 		"fabric-api": "*",
 		"limlib": "*",
-		"cloth-config": "*",
-		"specialmodels": "*"
+		"cloth-config": "*"
 	}
 }

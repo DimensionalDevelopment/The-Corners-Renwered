@@ -1,6 +1,5 @@
 package net.ludocrypt.corners.init;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -59,52 +58,33 @@ public class CornerBlocks {
 	public static final Block GAIA_PLANKS = get("gaia_planks", new Block(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS)));
 	public static final Block CARVED_GAIA = get("carved_gaia",
 		new OrientableBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS)));
-	public static final Block GAIA_SAPLING = get("gaia_sapling", new SaplingBlock(new GaiaSaplingGenerator(),
+	public static final Block GAIA_SAPLING = get("gaia_sapling", new SaplingBlock(GaiaSaplingGenerator.GAIA,
 		FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING).mapColor(MapColor.GOLD)));
 	public static final Block GAIA_LOG = get("gaia_log",
 		new RotatedPillarBlock(FabricBlockSettings
 			.copyOf(Blocks.SPRUCE_LOG)
 			.mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.PODZOL : MapColor.GOLD)));
-	public static final Block STRIPPED_GAIA_LOG = get("stripped_gaia_log",
-		new RotatedPillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_SPRUCE_LOG).mapColor(MapColor.PODZOL)));
-	public static final Block GAIA_WOOD = get("gaia_wood",
-		new RotatedPillarBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD).mapColor(MapColor.GOLD)));
-	public static final Block STRIPPED_GAIA_WOOD = get("stripped_gaia_wood",
-		new RotatedPillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_SPRUCE_WOOD)));
-	public static final Block GAIA_LEAVES = get("gaia_leaves",
-		new LeavesBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)));
-	public static final Block GAIA_SIGN = getSingle("gaia_sign",
-		new StandingSignBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SIGN), GAIA_SIGN_TYPE));
-	public static final Block GAIA_WALL_SIGN = getSingle("gaia_wall_sign",
-		new WallSignBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WALL_SIGN).dropsLike(GAIA_SIGN), GAIA_SIGN_TYPE));
-	public static final Block GAIA_HANGING_SIGN = getSingle("gaia_hanging_sign",
-		new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_HANGING_SIGN), GAIA_SIGN_TYPE));
-	public static final Block GAIA_WALL_HANGING_SIGN = getSingle("gaia_wall_hanging_sign", new WallHangingSignBlock(
-		FabricBlockSettings.copyOf(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(GAIA_HANGING_SIGN), GAIA_SIGN_TYPE));
-	public static final Block GAIA_PRESSURE_PLATE = get("gaia_pressure_plate",
-		new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
-			FabricBlockSettings.copyOf(Blocks.SPRUCE_PRESSURE_PLATE), GAIA_SET_TYPE));
-	public static final Block GAIA_TRAPDOOR = get("gaia_trapdoor",
-		new TrapDoorBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_TRAPDOOR), GAIA_SET_TYPE));
-	public static final Block POTTED_GAIA_SAPLING = getSingle("potted_gaia_sapling",
-		Blocks.flowerPot(GAIA_SAPLING));
+	public static final Block STRIPPED_GAIA_LOG = get("stripped_gaia_log", new RotatedPillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_SPRUCE_LOG).mapColor(MapColor.PODZOL)));
+	public static final Block GAIA_WOOD = get("gaia_wood", new RotatedPillarBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD).mapColor(MapColor.GOLD)));
+	public static final Block STRIPPED_GAIA_WOOD = get("stripped_gaia_wood", new RotatedPillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_SPRUCE_WOOD)));
+	public static final Block GAIA_LEAVES = get("gaia_leaves", new LeavesBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)));
+	public static final Block GAIA_SIGN = getSingle("gaia_sign", new StandingSignBlock(GAIA_SIGN_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_SIGN)));
+	public static final Block GAIA_WALL_SIGN = getSingle("gaia_wall_sign", new WallSignBlock(GAIA_SIGN_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_WALL_SIGN).dropsLike(GAIA_SIGN)));
+	public static final Block GAIA_HANGING_SIGN = getSingle("gaia_hanging_sign", new CeilingHangingSignBlock(GAIA_SIGN_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_HANGING_SIGN)));
+    public static final Block GAIA_WALL_HANGING_SIGN = getSingle("gaia_wall_hanging_sign", new WallHangingSignBlock(GAIA_SIGN_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_WALL_HANGING_SIGN).dropsLike(GAIA_HANGING_SIGN)));
+	public static final Block GAIA_PRESSURE_PLATE = get("gaia_pressure_plate", new PressurePlateBlock(GAIA_SET_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_PRESSURE_PLATE)));
+	public static final Block GAIA_TRAPDOOR = get("gaia_trapdoor", new TrapDoorBlock(GAIA_SET_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_TRAPDOOR)));
+	public static final Block POTTED_GAIA_SAPLING = getSingle("potted_gaia_sapling", Blocks.flowerPot(GAIA_SAPLING));
 	public static final Block GAIA_BUTTON = get("gaia_button", Blocks.woodenButton(GAIA_SET_TYPE));
-	public static final Block GAIA_STAIRS = get("gaia_stairs",
-		new StairBlock(GAIA_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(GAIA_PLANKS)));
+	public static final Block GAIA_STAIRS = get("gaia_stairs", new StairBlock(GAIA_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(GAIA_PLANKS)));
 	public static final Block GAIA_SLAB = get("gaia_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB)));
-	public static final Block GAIA_FENCE_GATE = get("gaia_fence_gate",
-		new FenceGateBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_FENCE_GATE), GAIA_SIGN_TYPE));
-	public static final Block GAIA_FENCE = get("gaia_fence", new FenceBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_FENCE)));
-	public static final Block GAIA_DOOR = getSingle("gaia_door",
-		new DoorBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_DOOR), GAIA_SET_TYPE));
-	public static final Item GAIA_BOAT = get("gaia_boat",
-		new CornerBoatItem(false, CornerBoat.GAIA, new Item.Properties().stacksTo(1)));
-	public static final Item GAIA_CHEST_BOAT = get("gaia_chest_boat",
-		new CornerBoatItem(true, CornerBoat.GAIA, new Item.Properties().stacksTo(1)));
-	public static final Item GAIA_SIGN_ITEM = get("gaia_sign",
-		new SignItem(new Item.Properties().stacksTo(16), GAIA_SIGN, GAIA_WALL_SIGN));
-	public static final Item GAIA_HANGING_SIGN_ITEM = get("gaia_hanging_sign",
-		new HangingSignItem(GAIA_HANGING_SIGN, GAIA_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16)));
+	public static final Block GAIA_FENCE_GATE = get("gaia_fence_gate", new FenceGateBlock(GAIA_SIGN_TYPE, FabricBlockSettings.copyOf(Blocks.SPRUCE_FENCE_GATE)));
+	public static final Block GAIA_FENCE = get("gaia_fence", new FenceBlock(FabricBlockSettings.ofFullCopy(Blocks.SPRUCE_FENCE)));
+	public static final Block GAIA_DOOR = getSingle("gaia_door", new DoorBlock(GAIA_SET_TYPE, FabricBlockSettings.ofFullCopy(Blocks.SPRUCE_DOOR)));
+	public static final Item GAIA_BOAT = get("gaia_boat", new CornerBoatItem(false, CornerBoat.GAIA, new Item.Properties().stacksTo(1)));
+	public static final Item GAIA_CHEST_BOAT = get("gaia_chest_boat", new CornerBoatItem(true, CornerBoat.GAIA, new Item.Properties().stacksTo(1)));
+	public static final Item GAIA_SIGN_ITEM = get("gaia_sign", new SignItem(new Item.Properties().stacksTo(16), GAIA_SIGN, GAIA_WALL_SIGN));
+	public static final Item GAIA_HANGING_SIGN_ITEM = get("gaia_hanging_sign", new HangingSignItem(GAIA_HANGING_SIGN, GAIA_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16)));
 	public static final Item GAIA_DOOR_ITEM = get("gaia_door", new DoubleHighBlockItem(GAIA_DOOR, new Item.Properties()));
 
 	public static void init() {
@@ -184,7 +164,7 @@ public class CornerBlocks {
 	}
 
 	private static <B extends Block> B get(String id, B block) {
-		Registry.register(BuiltInRegistries.ITEM, TheCorners.id(id), new BlockItem(block, new FabricItemSettings()));
+		Registry.registerForHolder(BuiltInRegistries.ITEM, TheCorners.id(id), new BlockItem(block, new Item.Properties()));
 		return Registry.register(BuiltInRegistries.BLOCK, TheCorners.id(id), block);
 	}
 

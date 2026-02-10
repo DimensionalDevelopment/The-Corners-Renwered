@@ -1,16 +1,10 @@
 package net.ludocrypt.corners.world.chunk;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.init.CornerWorlds;
 import net.ludocrypt.corners.world.maze.GrandMazeGenerator;
@@ -18,35 +12,33 @@ import net.ludocrypt.limlib.api.world.LimlibHelper;
 import net.ludocrypt.limlib.api.world.Manipulation;
 import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.ludocrypt.limlib.api.world.chunk.AbstractNbtChunkGenerator;
-import net.ludocrypt.limlib.api.world.maze.CombineMaze;
-import net.ludocrypt.limlib.api.world.maze.DepthFirstMaze;
-import net.ludocrypt.limlib.api.world.maze.DepthFirstMazeSolver;
-import net.ludocrypt.limlib.api.world.maze.DilateMaze;
-import net.ludocrypt.limlib.api.world.maze.MazeComponent;
+import net.ludocrypt.limlib.api.world.maze.*;
 import net.ludocrypt.limlib.api.world.maze.MazeComponent.CellState;
 import net.ludocrypt.limlib.api.world.maze.MazeComponent.Vec2i;
-import net.ludocrypt.limlib.api.world.maze.MazePiece;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ThreadedLevelLightEngine;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.RandomState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootTable;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class HoaryCrossroadsChunkGenerator extends AbstractNbtChunkGenerator {
 
-	public static final Codec<HoaryCrossroadsChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> {
+	public static final MapCodec<HoaryCrossroadsChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
 		return instance.group(BiomeSource.CODEC.fieldOf("biome_source").stable().forGetter((chunkGenerator) -> {
 			return chunkGenerator.biomeSource;
 		}), NbtGroup.CODEC.fieldOf("group").stable().forGetter((chunkGenerator) -> {
@@ -106,17 +98,13 @@ public class HoaryCrossroadsChunkGenerator extends AbstractNbtChunkGenerator {
 	}
 
 	@Override
-	protected Codec<? extends ChunkGenerator> codec() {
+	protected MapCodec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
-	@Override
-	public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ChunkStatus targetStatus, Executor executor,
-			ServerLevel world, ChunkGenerator generator, StructureTemplateManager structureTemplateManager,
-			ThreadedLevelLightEngine lightingProvider,
-			Function<ChunkAccess, CompletableFuture<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>> fullChunkConverter, List<ChunkAccess> chunks,
-			ChunkAccess chunk) {
-		BlockPos startPos = chunk.getPos().getWorldPosition();
+    @Override
+    public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel serverLevel, ChunkGenerator generator, ChunkAccess chunk, Blender blender, RandomState randomState, StructureManager structureManager) {
+        BlockPos startPos = chunk.getPos().getWorldPosition();
 		this.mazeGenerator
 			.generateMaze(new Vec2i(startPos.getX(), startPos.getZ()), region, this::newMaze, this::decorateCell);
 		return CompletableFuture.completedFuture(chunk);
@@ -345,7 +333,7 @@ public class HoaryCrossroadsChunkGenerator extends AbstractNbtChunkGenerator {
 	}
 
 	@Override
-	protected ResourceLocation getContainerLootTable(RandomizableContainerBlockEntity container) {
+	protected ResourceKey<LootTable> getContainerLootTable(RandomizableContainerBlockEntity container) {
 		return BuiltInLootTables.SHIPWRECK_SUPPLY;
 	}
 

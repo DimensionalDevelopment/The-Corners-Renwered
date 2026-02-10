@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Minecraft.class)
 public interface MinecraftClientAccessor {
 
-	@Accessor("pausePartialTick")
-	float getPausedTickDelta();
+//	@Accessor("pausePartialTick")
+//	float getPausedTickDelta();
 
 }

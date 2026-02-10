@@ -1,0 +1,12 @@
+{
+  "music": {
+    "max_delay": 8000,
+    "min_delay": 3000,
+    "replace_current_music": true,
+    "sound": "corners:music.hoary_crossroads"
+  },
+  "reverb": {
+    "type": "limlib:static",
+    "decay_time": 15.0
+  }
+}

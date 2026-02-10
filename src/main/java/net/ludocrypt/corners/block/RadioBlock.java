@@ -1,21 +1,21 @@
 package net.ludocrypt.corners.block;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.ludocrypt.corners.packet.ClientToServerPackets;
+import net.ludocrypt.corners.packet.PlayRadio;
 import net.ludocrypt.corners.world.feature.GaiaSaplingGenerator;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -33,11 +33,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class RadioBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<RadioBlock> CODEC = simpleCodec(RadioBlock::new);
 
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final Map<Item, RadioBlock> CORES = Maps.newHashMap();
 	public final @Nullable Item core;
 	public final @Nullable RadioBlock empty;
+
+    public RadioBlock(Properties settings) {
+        this(null, null, settings);
+    }
 
 	public RadioBlock(@Nullable Item core, @Nullable RadioBlock empty, Properties settings) {
 		super(settings);
@@ -57,22 +62,20 @@ public class RadioBlock extends HorizontalDirectionalBlock {
 		builder.add(POWERED, FACING);
 	}
 
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
-			BlockHitResult hit) {
-
-		if (world.hasNeighborSignal(pos)) {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand interactionHand, BlockHitResult hit) {
+        if (world.hasNeighborSignal(pos)) {
 			sendOut(world, pos, !state.getValue(POWERED));
 			world.setBlockAndUpdate(pos, state.cycle(POWERED));
-			return InteractionResult.SUCCESS;
-		} else if (player.getItemInHand(hand).is(Items.BONE_MEAL)) {
+			return ItemInteractionResult.SUCCESS;
+		} else if (itemStack.is(Items.BONE_MEAL)) {
 
 			if (this.core == null) {
 
 				if (!world.isClientSide()) {
 
 					if (!player.getAbilities().instabuild) {
-						player.getItemInHand(hand).shrink(1);
+						itemStack.shrink(1);
 					}
 
 					if (this.empty != null) {
@@ -80,8 +83,7 @@ public class RadioBlock extends HorizontalDirectionalBlock {
 					} else {
 
 						if (world instanceof ServerLevel s) {
-							new GaiaSaplingGenerator()
-								.generateRadio(s, s.getChunkSource().getGenerator(), pos, state, s.getRandom());
+							GaiaSaplingGenerator.generateRadio(s, s.getChunkSource().getGenerator(), pos, state, s.getRandom());
 						}
 
 					}
@@ -89,7 +91,7 @@ public class RadioBlock extends HorizontalDirectionalBlock {
 					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 				}
 
-				return InteractionResult.SUCCESS;
+				return ItemInteractionResult.SUCCESS;
 			}
 
 		} else if (hit.getDirection().equals(state.getValue(FACING))) {
@@ -102,25 +104,25 @@ public class RadioBlock extends HorizontalDirectionalBlock {
 				}
 
 				world.playLocalSound(pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F, false);
-				return InteractionResult.SUCCESS;
-			} else if (CORES.containsKey(player.getItemInHand(hand).getItem())) {
+				return ItemInteractionResult.SUCCESS;
+			} else if (CORES.containsKey(itemStack.getItem())) {
 
 				if (!world.isClientSide()) {
-					world.setBlockAndUpdate(pos, of(state, CORES.get(player.getItemInHand(hand).getItem())));
+					world.setBlockAndUpdate(pos, of(state, CORES.get(itemStack.getItem())));
 
 					if (!player.getAbilities().instabuild) {
-						player.getItemInHand(hand).shrink(1);
+						itemStack.shrink(1);
 					}
 
 				}
 
 				world.playLocalSound(pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 0.5F, false);
-				return InteractionResult.SUCCESS;
+				return ItemInteractionResult.SUCCESS;
 			}
 
 		}
 
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -185,16 +187,20 @@ public class RadioBlock extends HorizontalDirectionalBlock {
 	public static void sendOut(Level world, BlockPos pos, boolean powered) {
 
 		if (!world.isClientSide) {
-			FriendlyByteBuf buf = PacketByteBufs.create();
-			buf.writeBlockPos(pos);
-			buf.writeBoolean(powered);
+            var playRadio = new PlayRadio(pos, powered);
 
 			for (ServerPlayer serverPlayer : PlayerLookup.tracking((ServerLevel) world, pos)) {
-				ServerPlayNetworking.send(serverPlayer, ClientToServerPackets.PLAY_RADIO, buf);
+				ServerPlayNetworking.send(serverPlayer, playRadio);
 			}
 
 		}
 
 	}
 
+
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
 }

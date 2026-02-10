@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -72,23 +72,22 @@ public class RailingBlock extends FenceBlock {
 				Block.box(6.0D, 12.0D, 6.0D, 10.0D, 16.0D, 10.0D), LAYERS_TO_COLLISION[state.getValue(LAYERS)]);
 	}
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
 			BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
 
 		if (itemStack.getItem() == Items.SNOW) {
 
 			if (state.getValue(LAYERS) < 8 && Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), world, pos)) {
 				world.setBlockAndUpdate(pos, state.cycle(LAYERS));
 				world.playSound(null, pos, SoundEvents.SNOW_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-				return InteractionResult.SUCCESS;
+				return ItemInteractionResult.SUCCESS;
 			}
 
 		}
 
-		return super.use(state, world, pos, player, hand, hit);
+		return super.useItemOn(itemStack, state, world, pos, player, hand, hit);
 	}
 
 	@Override

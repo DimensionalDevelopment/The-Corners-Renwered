@@ -2,7 +2,8 @@
 	"parent": "corners:root",
 	"display": {
 		"icon": {
-			"item": "corners:dark_railing"
+          "count": 1,
+          "id": "corners:dark_railing"
 		},
 		"title": {
 			"translate": "advancements.hoary_crossroads.root.title"

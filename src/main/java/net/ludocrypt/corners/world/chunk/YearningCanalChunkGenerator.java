@@ -1,14 +1,7 @@
 package net.ludocrypt.corners.world.chunk;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.function.Function;
-
-import com.mojang.datafixers.util.Either;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.ludocrypt.corners.TheCorners;
 import net.ludocrypt.corners.init.CornerWorlds;
 import net.ludocrypt.limlib.api.world.LimlibHelper;
@@ -17,22 +10,23 @@ import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.ludocrypt.limlib.api.world.chunk.AbstractNbtChunkGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ThreadedLevelLightEngine;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.RandomState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.levelgen.blending.Blender;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class YearningCanalChunkGenerator extends AbstractNbtChunkGenerator {
 
-	public static final Codec<YearningCanalChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> {
+	public static final MapCodec<YearningCanalChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
 		return instance.group(BiomeSource.CODEC.fieldOf("biome_source").stable().forGetter((chunkGenerator) -> {
 			return chunkGenerator.biomeSource;
 		}), NbtGroup.CODEC.fieldOf("group").stable().forGetter((chunkGenerator) -> {
@@ -44,7 +38,13 @@ public class YearningCanalChunkGenerator extends AbstractNbtChunkGenerator {
 		super(biomeSource, group);
 	}
 
-	public static NbtGroup createGroup() {
+
+    private static boolean isInChunk(ChunkAccess chunk, BlockPos pos) {
+        return (pos.getX() >> 4) == chunk.getPos().x && (pos.getZ() >> 4) == chunk.getPos().z;
+    }
+
+
+    public static NbtGroup  createGroup() {
 		return NbtGroup.Builder
 			.create(TheCorners.id(CornerWorlds.YEARNING_CANAL))
 			.with("yearning_canal", 1, 14)
@@ -58,17 +58,13 @@ public class YearningCanalChunkGenerator extends AbstractNbtChunkGenerator {
 	}
 
 	@Override
-	protected Codec<? extends ChunkGenerator> codec() {
+	protected MapCodec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
-	@Override
-	public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ChunkStatus targetStatus, Executor executor,
-			ServerLevel world, ChunkGenerator generator, StructureTemplateManager structureTemplateManager,
-			ThreadedLevelLightEngine lightingProvider,
-			Function<ChunkAccess, CompletableFuture<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>> fullChunkConverter, List<ChunkAccess> chunks,
-			ChunkAccess chunk) {
-		int max = Math.floorDiv(chunk.getMaxBuildHeight(), 54);
+    @Override
+    public CompletableFuture<ChunkAccess> populateNoise(WorldGenRegion region, ServerLevel serverLevel, ChunkGenerator generator, ChunkAccess chunk, Blender blender, RandomState randomState, StructureManager structureManager) {
+        int max = Math.floorDiv(chunk.getMaxBuildHeight(), 54);
 
 		for (int xi = 0; xi < 16; xi++) {
 
@@ -77,26 +73,42 @@ public class YearningCanalChunkGenerator extends AbstractNbtChunkGenerator {
 
 				for (int yi = 0; yi < max; yi++) {
 					BlockPos towerPos = pos.offset(0, yi * 54, 0);
-					RandomSource pieceRandom = RandomSource
-						.create(region.getSeed() + LimlibHelper.blockSeed(yi * 2, yi * 3, yi));
-					boolean hallwaySpawnsAtHeight = (pieceRandom.nextDouble() < 0.875D && pieceRandom
-						.nextBoolean()) && (yi != 0 && yi != max - 1);
+					RandomSource pieceRandom = RandomSource.create(region.getSeed() + LimlibHelper.blockSeed(yi * 2, yi * 3, yi));
+					boolean hallwaySpawnsAtHeight = (pieceRandom.nextDouble() < 0.875D && pieceRandom.nextBoolean()) && (yi != 0 && yi != max - 1);
 					Direction dir = Direction.from2DDataValue(pieceRandom.nextInt(4));
-					Rotation rotation = dir.equals(Direction.NORTH) ? Rotation.COUNTERCLOCKWISE_90
-							: dir.equals(Direction.EAST) ? Rotation.NONE
-									: dir.equals(Direction.SOUTH) ? Rotation.CLOCKWISE_90 : Rotation.CLOCKWISE_180;
-					BlockPos offsetPos = towerPos
-						.offset(
-							(dir.equals(Direction.NORTH) ? 6
-									: dir.equals(Direction.EAST) ? 12 : dir.equals(Direction.SOUTH) ? 6 : -10),
-							(dir.equals(Direction.NORTH) ? 13
-									: dir.equals(Direction.EAST) ? 23 : dir.equals(Direction.SOUTH) ? 22 : 15),
-							(dir.equals(Direction.NORTH) ? -10
-									: dir.equals(Direction.EAST) ? 6 : dir.equals(Direction.SOUTH) ? 12 : 6));
+
+
+                    Rotation rotation = switch (dir) {
+                        case NORTH -> Rotation.COUNTERCLOCKWISE_90;
+                        case EAST -> Rotation.NONE;
+                        case SOUTH -> Rotation.CLOCKWISE_90;
+                        default -> Rotation.CLOCKWISE_180;
+                    };
+
+                    int xOffset = switch (dir) {
+                        case NORTH -> 6;
+                        case EAST -> 12;
+                        case SOUTH -> 6;
+                        default -> -10;
+                    };
+                    int yOffset = switch (dir) {
+                        case NORTH -> 13;
+                        case EAST -> 23;
+                        case SOUTH -> 22;
+                        default -> 15;
+                    };
+                    int zOffset = switch (dir) {
+                        case NORTH -> -10;
+                        case EAST -> 6;
+                        case SOUTH -> 12;
+                        default -> 6;
+                    };
+
+                    BlockPos offsetPos = towerPos.offset(xOffset, yOffset, zOffset);
 
 					if (pos.getX() % 19 == 0 && pos.getZ() % 19 == 0) {
-						RandomSource chunkRandom = RandomSource
-							.create(region.getSeed() + LimlibHelper.blockSeed(pos.getX(), pos.getZ(), 50));
+						RandomSource chunkRandom = RandomSource.create(region.getSeed() + LimlibHelper.blockSeed(pos.getX(), pos.getZ(), 50));
+
 						boolean tower = chunkRandom.nextDouble() < 0.01 && chunkRandom.nextDouble() < 0.4;
 
 						if ((tower && (towerPos.getX() != 0 && towerPos.getZ() != 0)) || (towerPos.getX() == 0 && towerPos
@@ -129,22 +141,18 @@ public class YearningCanalChunkGenerator extends AbstractNbtChunkGenerator {
 
 						if (hallwaySpawnsAtHeight) {
 
-							if ((dir.equals(Direction.NORTH) && towerPos.getX() == 0 && towerPos.getZ() <= 0) || (dir
-								.equals(Direction.WEST) && towerPos.getZ() == 0 && towerPos.getX() <= 0) || (dir
-									.equals(Direction.SOUTH) && towerPos.getX() == 0 && towerPos.getZ() >= 1) || (dir
-										.equals(Direction.EAST) && towerPos.getZ() == 0 && towerPos.getX() >= 1)) {
-								RandomSource hallRandom = RandomSource
-									.create(region.getSeed() + LimlibHelper
-										.blockSeed(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ()));
+							if (
+                                    (dir == Direction.NORTH && towerPos.getX() == 0 && towerPos.getZ() <= 0) ||
+                                    (dir == Direction.WEST && towerPos.getZ() == 0 && towerPos.getX() <= 0) ||
+                                    (dir == Direction.SOUTH && towerPos.getX() == 0 && towerPos.getZ() >= 1) ||
+                                    (dir == Direction.EAST && towerPos.getZ() == 0 && towerPos.getX() >= 1)) {
+								RandomSource hallRandom = RandomSource.create(region.getSeed() + LimlibHelper.blockSeed(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ()));
 
-								if (hallRandom.nextInt(27) == 0) {
-									generateNbt(region, offsetPos.offset(0, 4, 0),
-										nbtGroup.pick("yearning_canal_hallway", hallRandom), Manipulation.of(rotation));
-								} else {
-									generateNbt(region, offsetPos.offset(0, 4, 0),
-										nbtGroup.pick("yearning_canal_hallway_decorated", hallRandom),
-										Manipulation.of(rotation));
-								}
+
+                                var selectedGroup = hallRandom.nextInt(27) == 0 ? "yearning_canal_hallway" : "yearning_canal_hallway_decorated";
+
+
+                                generateNbt(region, offsetPos.offset(0, 4, 0), nbtGroup.pick(selectedGroup, hallRandom), Manipulation.of(rotation));
 
 							}
 

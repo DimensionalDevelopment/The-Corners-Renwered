@@ -11,15 +11,21 @@ loom {
 	accessWidenerPath = file("src/main/resources/corners.accesswidener")
 }
 
+fabricApi {
+    configureDataGeneration {
+        modId = "corners"
+    }
+}
+
 repositories {
 	mavenLocal()
 	maven {
 		name = "ParchmentMC"
 		url = "https://maven.parchmentmc.org/"
 	}
-	maven {
-		url = 'https://ladysnake.jfrog.io/artifactory/mods'
-    }
+//	maven {
+//		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+//    }
 	maven {
 		url = 'https://jitpack.io'
     }
@@ -50,8 +56,9 @@ dependencies {
 
 	includeMod libs.shedaniel.cloth
 
-	includeMod libs.ludocrypt.specialmodels
-	includeMod libs.ludocrypt.limlib
+//	includeMod libs.ludocrypt.specialmodels
+//	includeMod libs.ludocrypt.limlib
+    includeMod(files("libs/limlib-12.0.0+1.21.1.jar"));
 
 }
 
