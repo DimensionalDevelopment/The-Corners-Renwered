@@ -1,0 +1,92 @@
+package net.ludocrypt.corners.client.render;
+
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
+import net.ludocrypt.corners.client.ShaderInstanceExt;
+import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+
+public final class SpecialModelShaderRegistry {
+
+    private static final Map<ResourceLocation, SpecialModelShaderOptions> OPTIONS = new LinkedHashMap<>();
+    private static final Map<ResourceLocation, ShaderInstance> SHADERS = new ConcurrentHashMap<>();
+
+    public static void register(ResourceLocation rendererId, ResourceLocation shaderId, @Nullable ShaderCallback setupCallback) {
+        register(rendererId, shaderId, DefaultVertexFormat.BLOCK, setupCallback);
+    }
+
+    public static synchronized void register(ResourceLocation rendererId, ResourceLocation shaderId, VertexFormat vertexFormat, @Nullable ShaderCallback setupCallback) {
+        register(new SpecialModelShaderOptions(rendererId, shaderId, vertexFormat, setupCallback));
+    }
+
+    public static synchronized void register(SpecialModelShaderOptions options) {
+        SpecialModelShaderOptions existing = OPTIONS.get(options.rendererId());
+
+        if (existing != null) {
+            if (!existing.sameDefinition(options)) {
+                throw new IllegalArgumentException("Special model shader renderer is already registered: " + options.rendererId());
+            }
+
+            return;
+        }
+
+        OPTIONS.put(options.rendererId(), options);
+    }
+
+    public static synchronized boolean isRegistered(ResourceLocation rendererId) {
+        return OPTIONS.containsKey(rendererId);
+    }
+
+    @Nullable
+    public static ShaderInstance getShader(ResourceLocation rendererId) {
+        return SHADERS.get(rendererId);
+    }
+
+    public static synchronized Collection<SpecialModelShaderOptions> registeredOptions() {
+        return List.copyOf(OPTIONS.values());
+    }
+
+    public static void registerCoreShaders(CoreShaderRegistrationCallback.RegistrationContext context) throws IOException {
+        SHADERS.clear();
+
+        for (SpecialModelShaderOptions options : registeredOptions()) {
+            context.register(options.shaderId(), options.vertexFormat(), shader -> {
+                if (options.setupCallback() != null) {
+                    ((ShaderInstanceExt) shader).addUniformSetCallback(options.setupCallback()::setup);
+                }
+
+                SHADERS.put(options.rendererId(), shader);
+            });
+        }
+    }
+
+    public record SpecialModelShaderOptions(ResourceLocation rendererId, ResourceLocation shaderId, VertexFormat vertexFormat,
+                                            @Nullable ShaderCallback setupCallback) {
+
+        public SpecialModelShaderOptions {
+            Objects.requireNonNull(rendererId, "rendererId");
+            Objects.requireNonNull(shaderId, "shaderId");
+            Objects.requireNonNull(vertexFormat, "vertexFormat");
+        }
+
+        private boolean sameDefinition(SpecialModelShaderOptions other) {
+            return this.rendererId.equals(other.rendererId)
+                && this.shaderId.equals(other.shaderId)
+                && this.vertexFormat.equals(other.vertexFormat)
+                && this.setupCallback == other.setupCallback;
+        }
+    }
+
+    private SpecialModelShaderRegistry() {
+    }
+}

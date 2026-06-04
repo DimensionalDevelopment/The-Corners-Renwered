@@ -17,6 +17,8 @@ import org.joml.Vector4f;
 public class ChristmasRenderer implements ShaderCallback {
 
 	private final String id;
+	private static final int[] TWINKLE_TEXTURE_UNITS = {1, 3, 4};
+	private static final int LIGHT_TEXTURE_UNIT_START = 5;
 
 	public ChristmasRenderer(String id) {
 		this.id = id;
@@ -38,8 +40,8 @@ public class ChristmasRenderer implements ShaderCallback {
 			}
 
 			for (int i = 0; i < 6; i++) {
-				RenderSystem.setShaderTexture(i + 4, TheCorners.id("textures/sky/" + id + "_lights_" + i + ".png"));
-				shader.setSampler("Light" + i, RenderSystem.getShaderTexture(i + 4));
+				RenderSystem.setShaderTexture(i + LIGHT_TEXTURE_UNIT_START, TheCorners.id("textures/sky/" + id + "_lights_" + i + ".png"));
+				shader.setSampler("Light" + i, RenderSystem.getShaderTexture(i + LIGHT_TEXTURE_UNIT_START));
 
 				if (shader.getUniform("leftTint" + i) != null) {
 					shader
@@ -68,10 +70,11 @@ public class ChristmasRenderer implements ShaderCallback {
 		}
 
 		RenderSystem.setShaderTexture(0, TheCorners.id("textures/sky/" + id + ".png"));
+		shader.setSampler("Sampler0", RenderSystem.getShaderTexture(0));
 
 		for (int i = 0; i < 3; i++) {
-			RenderSystem.setShaderTexture(i + 1, TheCorners.id("textures/sky/" + id + "_twinkles_" + i + ".png"));
-			shader.setSampler("Twinkle" + i, RenderSystem.getShaderTexture(i + 1));
+			RenderSystem.setShaderTexture(TWINKLE_TEXTURE_UNITS[i], TheCorners.id("textures/sky/" + id + "_twinkles_" + i + ".png"));
+			shader.setSampler("Twinkle" + i, RenderSystem.getShaderTexture(TWINKLE_TEXTURE_UNITS[i]));
 		}
 
 		if (shader.getUniform("GameTime") != null) {

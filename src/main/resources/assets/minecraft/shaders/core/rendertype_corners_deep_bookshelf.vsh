@@ -39,7 +39,7 @@ out vec3 bottomRow;
 
 void main() {
 	vec3 pos = Position + ChunkOffset;
-	vertexDistance = fog_distance(ModelViewMat, pos, FogShape);
+	vertexDistance = fog_distance(pos, FogShape);
 	vertexColor = Color * minecraft_sample_lightmap(Sampler2, UV2);
 	vertexPos = pos;
 

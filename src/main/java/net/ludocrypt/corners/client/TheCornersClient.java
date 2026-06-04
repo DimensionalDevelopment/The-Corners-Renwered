@@ -42,8 +42,9 @@ public class TheCornersClient implements ClientModInitializer {
 			.registerModelLayer(CornerBoatEntityRenderer.getModelLayer(CornerBoat.GAIA, true),
 				() -> ChestBoatModel.createBodyModel());
 
-        TheCornersShaders.init();
+        TheCornersModelPlugin.init();
         CornerModelRenderers.init();
+        TheCornersShaders.init();
 	}
 
 }

@@ -62,7 +62,7 @@ Vertex vertice(vec3 pos, vec4 color, vec2 uv, ivec2 atlasSize, ivec2 atlasOffset
 	v.uv = uv;
 	v.atlasSize = atlasSize;
 	v.atlasOffset = atlasOffset;
-	v.dist = fog_distance(ModelViewMat, pos - cameraPos, FogShape);
+	v.dist = fog_distance(pos - cameraPos, FogShape);
 	return v;
 }
 

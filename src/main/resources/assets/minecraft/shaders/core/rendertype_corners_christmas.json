@@ -19,6 +19,9 @@
 			"name": "Sampler0"
 		},
 		{
+			"name": "Sampler2"
+		},
+		{
 			"name": "Twinkle0"
 		},
 		{
@@ -117,22 +120,6 @@
 			]
 		},
 		{
-			"name": "IViewRotMat",
-			"type": "matrix3x3",
-			"count": 9,
-			"values": [
-				1.0,
-				0.0,
-				0.0,
-				0.0,
-				1.0,
-				0.0,
-				0.0,
-				0.0,
-				1.0
-			]
-		},
-		{
 			"name": "ChunkOffset",
 			"type": "float",
 			"count": 3,
@@ -175,15 +162,6 @@
 			"count": 1,
 			"values": [
 				0
-			]
-		},
-		{
-			"name": "ScreenSize",
-			"type": "float",
-			"count": 2,
-			"values": [
-				1.0,
-				1.0
 			]
 		},
 		{
