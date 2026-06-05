@@ -54,11 +54,12 @@ dependencies {
 
 	modImplementation libs.terraformersmc.modmenu
 
-	includeMod libs.shedaniel.cloth
+	modImplementation libs.shedaniel.cloth
+	modImplementation libs.iris
+	modImplementation libs.sodium
 
 //	includeMod libs.ludocrypt.specialmodels
-//	includeMod libs.ludocrypt.limlib
-    includeMod(files("libs/limlib-12.0.0+1.21.1.jar"));
+	includeMod libs.ludocrypt.limlib
 
 }
 

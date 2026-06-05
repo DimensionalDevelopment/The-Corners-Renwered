@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
 import net.ludocrypt.corners.client.TheCornersModelPlugin;
+import net.ludocrypt.corners.compat.iris.IrisCompat;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SectionBufferBuilderPack;
@@ -54,6 +55,10 @@ public abstract class SectionCompilerMixin {
         @Local(index = 10) Map<RenderType, BufferBuilder> map,
         @Local(index = 13) BlockPos blockPos,
         @Local(index = 14) BlockState blockState) {
+
+        if (IrisCompat.shouldDisableSpecialModelRenderTypes()) {
+            return;
+        }
 
         long seed = blockState.getSeed(blockPos);
         BakedModel blockModel = this.blockRenderer.getBlockModel(blockState);

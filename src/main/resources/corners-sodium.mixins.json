@@ -1,0 +1,16 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "net.ludocrypt.corners.mixin.sodium",
+  "plugin": "net.ludocrypt.corners.mixin.CornersSodiumMixinPlugin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "ChunkBuildBuffersMixin",
+    "ChunkBuilderMeshingTaskMixin",
+    "DefaultTerrainRenderPassesAccessor",
+    "SodiumWorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

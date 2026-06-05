@@ -36,7 +36,9 @@
         ]
 	},
 	"mixins": [
-		"corners.mixins.json"
+		"corners.mixins.json",
+		"corners-iris.mixins.json",
+		"corners-sodium.mixins.json"
 	],
 	"accessWidener": "corners.accesswidener",
 	"custom": {

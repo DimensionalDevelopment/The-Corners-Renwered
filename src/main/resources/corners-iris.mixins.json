@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "net.ludocrypt.corners.mixin.iris",
+  "plugin": "net.ludocrypt.corners.mixin.CornersMixinPlugin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "WorldRenderingPhaseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
