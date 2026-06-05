@@ -1,38 +1,47 @@
 package net.ludocrypt.corners.mixin.sodium;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.caffeinemc.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.ChunkBuildContext;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.ChunkBuildOutput;
-import net.caffeinemc.mods.sodium.client.render.chunk.compile.buffers.ChunkModelBuilder;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderCache;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.tasks.ChunkBuilderMeshingTask;
-import net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass;
-import net.caffeinemc.mods.sodium.client.render.chunk.terrain.material.Material;
-import net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.TranslucentGeometryCollector;
 import net.caffeinemc.mods.sodium.client.util.task.CancellationToken;
 import net.caffeinemc.mods.sodium.client.world.LevelSlice;
 import net.ludocrypt.corners.client.TheCornersModelPlugin;
 import net.ludocrypt.corners.compat.iris.IrisCompat;
-import net.ludocrypt.corners.compat.sodium.SodiumChunkBuildBuffersExt;
-import net.ludocrypt.corners.compat.sodium.SodiumSpecialModelRenderPasses;
+import net.ludocrypt.corners.compat.sodium.SodiumSpecialModelMeshRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(value = ChunkBuilderMeshingTask.class, remap = false)
 public class ChunkBuilderMeshingTaskMixin {
+
+    @Unique
+    private Map<RenderType, SodiumSpecialModelMeshRegistry.PendingMeshBuilder> corners$specialModelBuffers;
+
+    @Inject(
+        method = "execute(Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildContext;Lnet/caffeinemc/mods/sodium/client/util/task/CancellationToken;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildOutput;",
+        at = @At("HEAD"))
+    private void corners$beginSpecialModelMesh(ChunkBuildContext context, CancellationToken cancellationToken,
+                                               CallbackInfoReturnable<ChunkBuildOutput> cir) {
+        this.corners$specialModelBuffers = new LinkedHashMap<>();
+    }
 
     @Inject(
         method = "execute(Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildContext;Lnet/caffeinemc/mods/sodium/client/util/task/CancellationToken;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildOutput;",
@@ -42,12 +51,9 @@ public class ChunkBuilderMeshingTaskMixin {
             shift = At.Shift.AFTER))
     private void corners$renderSpecialModelParts(ChunkBuildContext context, CancellationToken cancellationToken,
                                                  CallbackInfoReturnable<ChunkBuildOutput> cir,
-                                                 @Local(index = 5) ChunkBuildBuffers buffers,
                                                  @Local(index = 6) BlockRenderCache cache,
                                                  @Local(index = 7) LevelSlice levelSlice,
                                                  @Local(index = 14) BlockPos.MutableBlockPos blockPos,
-                                                 @Local(index = 15) BlockPos.MutableBlockPos localPos,
-                                                 @Local(index = 16) TranslucentGeometryCollector collector,
                                                  @Local(index = 21) BlockState blockState) {
         if (IrisCompat.shouldDisableSpecialModelRenderTypes()) {
             return;
@@ -62,16 +68,32 @@ public class ChunkBuilderMeshingTaskMixin {
         }
 
         PoseStack poseStack = new PoseStack();
-        poseStack.translate(localPos.getX(), localPos.getY(), localPos.getZ());
+        poseStack.translate(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         int light = LevelRenderer.getLightColor(levelSlice, blockState, blockPos);
 
         for (TheCornersModelPlugin.SpecialModelPart specialModelPart : specialModelParts) {
-            Material material = SodiumSpecialModelRenderPasses.getMaterial(specialModelPart.renderType());
-            TerrainRenderPass pass = material.pass;
-            ChunkModelBuilder builder = ((SodiumChunkBuildBuffersExt) buffers).corners$getOrCreateSpecialModelBuilder(pass);
-            VertexConsumer consumer = builder.asFallbackVertexConsumer(material, collector);
-            Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(poseStack.last(), consumer, blockState,
+            BufferBuilder specialBuffer = this.corners$getOrCreateSpecialModelBuffer(specialModelPart.renderType());
+            Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(poseStack.last(), specialBuffer, blockState,
                 specialModelPart.model(), 1.0F, 1.0F, 1.0F, light, OverlayTexture.NO_OVERLAY);
         }
+    }
+
+    @Inject(
+        method = "execute(Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildContext;Lnet/caffeinemc/mods/sodium/client/util/task/CancellationToken;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildOutput;",
+        at = @At("RETURN"))
+    private void corners$finishSpecialModelMesh(ChunkBuildContext context, CancellationToken cancellationToken,
+                                                CallbackInfoReturnable<ChunkBuildOutput> cir) {
+        if (cir.getReturnValue() != null && this.corners$specialModelBuffers != null) {
+            SodiumSpecialModelMeshRegistry.submit(((ChunkBuilderTaskAccessor) this).corners$getRender().getPosition(), this.corners$specialModelBuffers);
+        }
+
+        this.corners$specialModelBuffers = null;
+    }
+
+    @Unique
+    private BufferBuilder corners$getOrCreateSpecialModelBuffer(RenderType renderType) {
+        return this.corners$specialModelBuffers
+            .computeIfAbsent(renderType, SodiumSpecialModelMeshRegistry::createBuilder)
+            .buffer();
     }
 }

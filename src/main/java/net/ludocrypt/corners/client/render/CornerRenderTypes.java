@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.ludocrypt.corners.compat.iris.IrisCompat;
-import net.ludocrypt.corners.compat.sodium.SodiumCompat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -50,7 +49,6 @@ public final class CornerRenderTypes {
         RenderType created = createSpecialModelRenderType(id);
         specialModelRenderTypes.put(id, created);
         chunkBufferLayers = List.copyOf(specialModelRenderTypes.values());
-        SodiumCompat.registerSpecialModelRenderType(created);
         return created;
     }
 

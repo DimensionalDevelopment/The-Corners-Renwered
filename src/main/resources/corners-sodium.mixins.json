@@ -5,10 +5,9 @@
   "plugin": "net.ludocrypt.corners.mixin.CornersSodiumMixinPlugin",
   "compatibilityLevel": "JAVA_16",
   "client": [
-    "ChunkBuildBuffersMixin",
+    "ChunkBuilderTaskAccessor",
     "ChunkBuilderMeshingTaskMixin",
-    "DefaultTerrainRenderPassesAccessor",
-    "SodiumWorldRendererMixin"
+    "RenderSectionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

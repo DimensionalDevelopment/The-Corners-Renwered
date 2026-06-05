@@ -1,18 +1,17 @@
 package net.ludocrypt.corners.compat.sodium;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.renderer.RenderType;
+import org.joml.Matrix4f;
 
 public final class SodiumCompat {
 
-    public static void registerSpecialModelRenderType(RenderType renderType) {
-        if (!FabricLoader.getInstance().isModLoaded("sodium")) {
-            return;
-        }
+    public static boolean isLoaded() {
+        return FabricLoader.getInstance().isModLoaded("sodium");
+    }
 
-        try {
-            SodiumApiProxy.registerSpecialModelRenderType(renderType);
-        } catch (LinkageError | RuntimeException ignored) {
+    public static void renderSpecialModelMeshes(double cameraX, double cameraY, double cameraZ, Matrix4f modelViewMatrix, Matrix4f projectionMatrix) {
+        if (isLoaded()) {
+            SodiumSpecialModelMeshRegistry.renderAll(cameraX, cameraY, cameraZ, modelViewMatrix, projectionMatrix);
         }
     }
 
