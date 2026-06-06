@@ -10,12 +10,12 @@ import net.caffeinemc.mods.sodium.client.render.chunk.compile.tasks.ChunkBuilder
 import net.caffeinemc.mods.sodium.client.util.task.CancellationToken;
 import net.caffeinemc.mods.sodium.client.world.LevelSlice;
 import net.ludocrypt.corners.client.TheCornersModelPlugin;
+import net.ludocrypt.corners.client.render.SpecialModelShaderRegistry;
 import net.ludocrypt.corners.compat.iris.IrisCompat;
 import net.ludocrypt.corners.compat.sodium.SodiumSpecialModelMeshRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,15 +48,42 @@ public class ChunkBuilderMeshingTaskMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;renderModel(Lnet/minecraft/client/resources/model/BakedModel;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)V",
-            shift = At.Shift.AFTER))
-    private void corners$renderSpecialModelParts(ChunkBuildContext context, CancellationToken cancellationToken,
-                                                 CallbackInfoReturnable<ChunkBuildOutput> cir,
-                                                 @Local(index = 6) BlockRenderCache cache,
-                                                 @Local(index = 7) LevelSlice levelSlice,
-                                                 @Local(index = 14) BlockPos.MutableBlockPos blockPos,
-                                                 @Local(index = 21) BlockState blockState) {
+            shift = At.Shift.AFTER),
+        require = 0)
+    private void corners$renderSpecialModelPartsNamed(ChunkBuildContext context, CancellationToken cancellationToken,
+                                                      CallbackInfoReturnable<ChunkBuildOutput> cir,
+                                                      @Local(index = 6) BlockRenderCache cache,
+                                                      @Local(index = 7) LevelSlice levelSlice,
+                                                      @Local(index = 14) BlockPos.MutableBlockPos blockPos,
+                                                      @Local(index = 21) BlockState blockState) {
+        this.corners$renderSpecialModelParts(cache, levelSlice, blockPos, blockState);
+    }
+
+    @Inject(
+        method = "execute(Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildContext;Lnet/caffeinemc/mods/sodium/client/util/task/CancellationToken;)Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/ChunkBuildOutput;",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer;renderModel(Lnet/minecraft/class_1087;Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Lnet/minecraft/class_2338;)V",
+            shift = At.Shift.AFTER),
+        require = 0)
+    private void corners$renderSpecialModelPartsIntermediary(ChunkBuildContext context, CancellationToken cancellationToken,
+                                                             CallbackInfoReturnable<ChunkBuildOutput> cir,
+                                                             @Local(index = 6) BlockRenderCache cache,
+                                                             @Local(index = 7) LevelSlice levelSlice,
+                                                             @Local(index = 14) BlockPos.MutableBlockPos blockPos,
+                                                             @Local(index = 21) BlockState blockState) {
+        this.corners$renderSpecialModelParts(cache, levelSlice, blockPos, blockState);
+    }
+
+    @Unique
+    private void corners$renderSpecialModelParts(BlockRenderCache cache, LevelSlice levelSlice, BlockPos.MutableBlockPos blockPos,
+                                                 BlockState blockState) {
         if (IrisCompat.shouldDisableSpecialModelRenderTypes()) {
             return;
+        }
+
+        if (this.corners$specialModelBuffers == null) {
+            this.corners$specialModelBuffers = new LinkedHashMap<>();
         }
 
         BakedModel blockModel = cache.getBlockModels().getBlockModel(blockState);
@@ -72,9 +99,11 @@ public class ChunkBuilderMeshingTaskMixin {
         int light = LevelRenderer.getLightColor(levelSlice, blockState, blockPos);
 
         for (TheCornersModelPlugin.SpecialModelPart specialModelPart : specialModelParts) {
+            int overlay = SpecialModelShaderRegistry
+                .appendOverlayState(specialModelPart.rendererId(), levelSlice, blockPos, blockState, specialModelPart.model(), seed);
             BufferBuilder specialBuffer = this.corners$getOrCreateSpecialModelBuffer(specialModelPart.renderType());
             Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(poseStack.last(), specialBuffer, blockState,
-                specialModelPart.model(), 1.0F, 1.0F, 1.0F, light, OverlayTexture.NO_OVERLAY);
+                specialModelPart.model(), 1.0F, 1.0F, 1.0F, light, overlay);
         }
     }
 

@@ -1,6 +1,5 @@
 package net.ludocrypt.corners.client.render;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.ludocrypt.corners.compat.iris.IrisCompat;
@@ -70,11 +69,12 @@ public final class CornerRenderTypes {
 
     private static RenderType createSpecialModelRenderType(ResourceLocation rendererId) {
         RenderStateShard.ShaderStateShard shader = new RenderStateShard.ShaderStateShard(() -> SpecialModelShaderRegistry.getShader(rendererId));
+        VertexFormat vertexFormat = SpecialModelShaderRegistry.getVertexFormat(rendererId);
 
         return RenderType
             .create(
                 "corners_special_model_" + rendererId.toString().replace(':', '_').replace('/', '_'),
-                DefaultVertexFormat.BLOCK,
+                vertexFormat,
                 VertexFormat.Mode.QUADS,
                 RenderType.BIG_BUFFER_SIZE,
                 true,

@@ -5,7 +5,12 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.ludocrypt.corners.client.ShaderInstanceExt;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -45,6 +50,22 @@ public final class SpecialModelShaderRegistry {
 
     public static synchronized boolean isRegistered(ResourceLocation rendererId) {
         return OPTIONS.containsKey(rendererId);
+    }
+
+    public static synchronized VertexFormat getVertexFormat(ResourceLocation rendererId) {
+        SpecialModelShaderOptions options = OPTIONS.get(rendererId);
+        return options != null ? options.vertexFormat() : DefaultVertexFormat.BLOCK;
+    }
+
+    public static synchronized int appendOverlayState(ResourceLocation rendererId, BlockAndTintGetter level, BlockPos pos, BlockState state,
+                                                      BakedModel model, long modelSeed) {
+        SpecialModelShaderOptions options = OPTIONS.get(rendererId);
+
+        if (options == null || options.setupCallback() == null) {
+            return OverlayTexture.NO_OVERLAY;
+        }
+
+        return options.setupCallback().appendOverlayState(level, pos, state, model, modelSeed);
     }
 
     @Nullable

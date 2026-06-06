@@ -166,7 +166,7 @@ public final class TheCornersModelPlugin {
             BakedModel specialModel = baker.bake(entry.getValue(), settings);
 
             if (specialModel != null) {
-                parts.add(new SpecialModelPart(renderType, specialModel));
+                parts.add(new SpecialModelPart(entry.getKey(), renderType, specialModel));
             }
         }
 
@@ -193,7 +193,7 @@ public final class TheCornersModelPlugin {
         return java.util.Collections.newSetFromMap(new IdentityHashMap<>());
     }
 
-    public record SpecialModelPart(RenderType renderType, BakedModel model) {
+    public record SpecialModelPart(ResourceLocation rendererId, RenderType renderType, BakedModel model) {
     }
 
     private TheCornersModelPlugin() {

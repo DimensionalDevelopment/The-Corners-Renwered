@@ -22,7 +22,6 @@
     "BackgroundRendererMixin",
     "BlockModelDeserializerMixin",
     "BlockModelMixin",
-    "BakedModelManagerMixin",
     "FrustumAccessor",
     "GameRendererAccessor",
     "LevelRendererMixin",

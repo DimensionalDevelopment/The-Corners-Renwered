@@ -6,6 +6,7 @@ import net.ludocrypt.corners.client.render.DeepBookshelfRenderer;
 import net.ludocrypt.corners.client.render.ShaderCallback;
 import net.ludocrypt.corners.client.render.SkyboxRenderer;
 import net.ludocrypt.corners.client.render.SpecialModelShaderRegistry;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.resources.ResourceLocation;
 
 public class CornerModelRenderers {
@@ -21,7 +22,8 @@ public class CornerModelRenderers {
 	public static void init() {
 		SpecialModelShaderRegistry.register(SNOWY_SKYBOX, ResourceLocation.withDefaultNamespace("rendertype_corners_christmas"),
 			SNOWY_SKYBOX_RENDERER);
-		SpecialModelShaderRegistry.register(DEEP_BOOKSHELF, ResourceLocation.withDefaultNamespace("rendertype_corners_deep_bookshelf"),
-			DEEP_BOOKSHELF_RENDERER);
+		SpecialModelShaderRegistry
+			.register(DEEP_BOOKSHELF, ResourceLocation.withDefaultNamespace("rendertype_corners_deep_bookshelf"),
+				DefaultVertexFormat.NEW_ENTITY, DEEP_BOOKSHELF_RENDERER);
 	}
 }

@@ -6,9 +6,12 @@
 #define BOOK_TEXTURE ivec2(0, 0)
 #define TOP_TEXTURE ivec2(0, 1)
 #define SIDE_TEXTURE ivec2(1, 0)
+#define GENERATED_LIGHT_FLOOR 0.85
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;
+uniform sampler2D Sampler3;
+uniform sampler2D Sampler4;
 
 uniform float FogStart;
 uniform float FogEnd;
@@ -29,6 +32,7 @@ uniform float GameTime;
 uniform vec3 ChunkOffset;
 
 in vec4 vertexColor;
+in vec4 lightMapColor;
 in vec3 vertexPos;
 in vec2 texCoord0;
 in float vertexDistance;
@@ -126,6 +130,20 @@ vec3 calculateTriangleNormal(vec3 v0, vec3 v1, vec3 v2) {
 	return normalize(normal);
 }
 
+vec4 sampleGeneratedTexture(ivec2 textureId, vec2 uv, vec2 dx, vec2 dy) {
+	vec2 texCoord = mod(uv, 1.0);
+
+	if (all(equal(textureId, TOP_TEXTURE))) {
+		return textureGrad(Sampler3, texCoord, dx, dy);
+	}
+
+	if (all(equal(textureId, SIDE_TEXTURE))) {
+		return textureGrad(Sampler4, texCoord, dx, dy);
+	}
+
+	return textureGrad(Sampler1, texCoord, dx, dy);
+}
+
 vec4 drawTriangle(vec4 base, Vertex v1, Vertex v2, Vertex v3) {
 	vec3 bary = barycentric(toScreen(v1.pos), toScreen(v2.pos), toScreen(v3.pos));
 	if (isInTriangle(bary) && dot(normalize(unbob(vertexPos)), calculateTriangleNormal(v1.pos, v2.pos, v3.pos)) <= 0.0) {
@@ -139,10 +157,9 @@ vec4 drawTriangle(vec4 base, Vertex v1, Vertex v2, Vertex v3) {
 			return base;
 		}
 
-		vec2 texCoord = (mod(uv, 1.0) / vec2(v1.atlasSize)) + (vec2(v1.atlasOffset) / vec2(v1.atlasSize));
-		vec4 color = textureGrad(Sampler1, texCoord, dFdx(uv), dFdy(uv)) * quadColor;
+		vec4 color = sampleGeneratedTexture(v1.atlasOffset, uv, dFdx(uv), dFdy(uv)) * quadColor;
 
-		return linear_fog(color, dist, FogStart, FogEnd, FogColor);
+		return color;
 	}
 	return base;
 }
@@ -231,6 +248,7 @@ void main() {
 	vec3 worldPos = floor(vertexPos + cameraPos + vec3(0.00003));
 
 	vec4 color = texture(Sampler0, texCoord0) * vertexColor;
+	vec4 generatedColor = vec4(max(lightMapColor.rgb, vec3(GENERATED_LIGHT_FLOOR)), vertexColor.a);
 
 	mat4 rotateMatrix = mat4(
 		vec4(0, 0, 1, 0),
@@ -268,7 +286,7 @@ void main() {
 						-vec3(FogEnd, 6.0 / 16.0, 14.0 / 16.0),
 						vec3(-(FogEnd / 2.0), 12.0 / 16.0, 0.5),
 						rotateMatrix,
-						vertexColor,
+						generatedColor,
 						TOP_TEXTURE,
 						vec4(1.0, FogEnd * 16.0, 15.0, 0.0),
 						TOP_TEXTURE,
@@ -287,7 +305,7 @@ void main() {
 						-vec3(FogEnd, 6.0 / 16.0, 14.0 / 16.0),
 						vec3(-(FogEnd / 2.0), 4.0 / 16.0, 0.5),
 						rotateMatrix,
-						vertexColor,
+						generatedColor,
 						TOP_TEXTURE,
 						vec4(1.0, FogEnd * 16.0, 15.0, 0.0),
 						TOP_TEXTURE,
@@ -310,7 +328,7 @@ void main() {
 							vec3(FogEnd, 5.0 / 16.0, 0.25),
 							vec3(-(FogEnd / 2.0), 11.5 / 16.0, 13.0 / 16.0),
 							rotateMatrix,
-							vertexColor,
+							generatedColor,
 							BOOK_TEXTURE,
 							boxUV.xwzy,
 							BOOK_TEXTURE,
@@ -333,7 +351,7 @@ void main() {
 							vec3(FogEnd, 6.0 / 16.0, 0.25),
 							vec3(-(FogEnd / 2.0), 12.0 / 16.0, 0.5),
 							rotateMatrix,
-							vertexColor,
+							generatedColor,
 							BOOK_TEXTURE,
 							boxUV.xwzy,
 							BOOK_TEXTURE,
@@ -356,7 +374,7 @@ void main() {
 							vec3(FogEnd, 6.0 / 16.0, 0.25),
 							vec3(-(FogEnd / 2.0), 12.0 / 16.0, 3.0 / 16.0),
 							rotateMatrix,
-							vertexColor,
+							generatedColor,
 							BOOK_TEXTURE,
 							boxUV.xwzy,
 							BOOK_TEXTURE,
@@ -379,7 +397,7 @@ void main() {
 							vec3(FogEnd, 6.0 / 16.0, 0.25),
 							vec3(-(FogEnd / 2.0), 4.0 / 16.0, 13.0 / 16.0),
 							rotateMatrix,
-							vertexColor,
+							generatedColor,
 							BOOK_TEXTURE,
 							boxUV.xwzy,
 							BOOK_TEXTURE,
@@ -402,7 +420,7 @@ void main() {
 							vec3(FogEnd, 5.0 / 16.0, 0.25),
 							vec3(-(FogEnd / 2.0), 3.5 / 16.0, 8.0 / 16.0),
 							rotateMatrix,
-							vertexColor,
+							generatedColor,
 							BOOK_TEXTURE,
 							boxUV.xwzy,
 							BOOK_TEXTURE,
@@ -425,7 +443,7 @@ void main() {
 							vec3(FogEnd, 6.0 / 16.0, 0.25),
 							vec3(-(FogEnd / 2.0), 4.0 / 16.0, 3.0 / 16.0),
 							rotateMatrix,
-							vertexColor,
+							generatedColor,
 							BOOK_TEXTURE,
 							boxUV.xwzy,
 							BOOK_TEXTURE,
