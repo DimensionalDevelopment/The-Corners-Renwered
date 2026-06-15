@@ -18,7 +18,11 @@ fabricApi {
 }
 
 repositories {
-	mavenLocal()
+	flatDir {
+		dirs "libs"
+	}
+
+//	mavenLocal()
 	maven {
 		name = "ParchmentMC"
 		url = "https://maven.parchmentmc.org/"
@@ -55,7 +59,7 @@ dependencies {
 	modImplementation libs.terraformersmc.modmenu
 
 	modImplementation libs.shedaniel.cloth
-	modImplementation libs.iris
+	modCompileOnly libs.iris
 	modImplementation libs.sodium
 
 //	includeMod libs.ludocrypt.specialmodels
@@ -79,6 +83,14 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
 }
+
+tasks.register("updateNbtData", JavaExec) {
+	group = "tools"
+	description = "Updates .nbt files through Minecraft's DataFixer. Pass arguments with --args=\"<path> [options]\"."
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = "net.ludocrypt.corners.util.NbtDataUpdater"
+}
+
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
 	targetCompatibility = JavaVersion.VERSION_17
