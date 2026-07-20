@@ -5,13 +5,26 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.service.MixinService;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
 public final class SpecialModelsIrisMixinPlugin implements IMixinConfigPlugin {
 
-    private boolean irisLoaded;
+    private final boolean irisLoaded;
+
+    public SpecialModelsIrisMixinPlugin() {
+        boolean loaded;
+
+        try {
+            loaded = MixinService.getService()
+                .getBytecodeProvider()
+                .getClassNode("net.irisshaders.iris.api.v0.IrisApi") != null;
+        } catch (Exception exception) {
+            loaded = false;
+        }
+
+        this.irisLoaded = loaded;
+    }
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -24,14 +37,7 @@ public final class SpecialModelsIrisMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        System.out.println("Iris Mixin: " + targetClassName + " - " + mixinClassName);
-
-        try {
-            MixinService.getService().getBytecodeProvider().getClassNode(targetClassName, false);
-            return true;
-        } catch (ClassNotFoundException | IOException | IllegalArgumentException e) {
-            return false;
-        }
+        return this.irisLoaded;
     }
 
     @Override
@@ -40,7 +46,7 @@ public final class SpecialModelsIrisMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        return null;
+        return List.of();
     }
 
     @Override
