@@ -40,11 +40,7 @@
 	},
 	"mixins": [
 		"corners.mixins.json",
-		"corners-fabric.mixins.json",
-		"limlib-specialmodels.mixins.json",
-		"limlib-specialmodels-fabric.mixins.json",
-		"corners-iris.mixins.json",
-		"corners-sodium.mixins.json"
+		"corners-fabric.mixins.json"
 	],
 	"accessWidener": "corners.accesswidener",
 	"custom": {
