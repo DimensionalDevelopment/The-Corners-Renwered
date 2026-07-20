@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/glass",
+	"specialmodels": {
+		"corners:snowy_skybox": "corners:shader/snowy_glass"
+	}
+}

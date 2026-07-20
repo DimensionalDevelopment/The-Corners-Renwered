@@ -1,0 +1,19 @@
+package net.ludocrypt.corners.world.maze;
+
+import java.util.HashMap;
+
+import org.dimdev.limlib.api.world.maze.MazeComponent;
+import org.dimdev.limlib.api.world.maze.MazeGenerator;
+import net.minecraft.core.BlockPos;
+
+public class GrandMazeGenerator extends MazeGenerator<MazeComponent> {
+
+	public final HashMap<BlockPos, MazeComponent> grandMazeMap = new HashMap<BlockPos, MazeComponent>(30);
+	public final int dilation;
+
+	public GrandMazeGenerator(int width, int height, int dilation, long seedModifier) {
+		super(width * dilation, height * dilation, 8, 8, seedModifier);
+		this.dilation = dilation;
+	}
+
+}

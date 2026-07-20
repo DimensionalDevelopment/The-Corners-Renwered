@@ -10,6 +10,7 @@ import net.ludocrypt.corners.mixin.GameRendererAccessor;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;
+import org.dimdev.limlib.client.specialmodels.ShaderCallback;
 import org.joml.Matrix4f;
 
 public record SkyboxRenderer(String id) implements ShaderCallback {

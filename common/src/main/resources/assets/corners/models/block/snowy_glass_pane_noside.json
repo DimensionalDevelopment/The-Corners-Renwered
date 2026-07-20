@@ -1,0 +1,9 @@
+{
+	"parent": "block/template_glass_pane_noside",
+	"textures": {
+		"pane": "minecraft:block/glass"
+	},
+	"specialmodels": {
+		"corners:snowy_skybox": "corners:shader/snowy_glass_pane_noside"
+	}
+}

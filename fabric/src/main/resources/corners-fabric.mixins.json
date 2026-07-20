@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ludocrypt.corners.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "FabricDynamicRegistryProviderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

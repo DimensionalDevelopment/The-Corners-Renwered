@@ -1,0 +1,5 @@
+{
+  "type": "limlib:static",
+  "brighten_lighting": true,
+  "thick_fog": true
+}

@@ -20,22 +20,12 @@
   ],
   "client": [
     "BackgroundRendererMixin",
-    "BlockModelDeserializerMixin",
-    "BlockModelMixin",
     "FrustumAccessor",
     "GameRendererAccessor",
-    "LevelRendererMixin",
     "MinecraftClientAccessor",
     "MinecraftClientMixin",
-    "MultiPartBakedModelAccessor",
     "MusicTrackerMixin",
-    "RenderTypeMixin",
-    "SectionBufferBuilderPackMixin",
-    "SectionCompilerMixin",
-    "ShaderInstanceMixin",
-    "SimpleBakedModelMixin",
     "SoundManagerAccessor",
-    "WeightedBakedModelAccessor",
     "WorldRendererAccessor"
   ],
   "injectors": {

@@ -1,0 +1,16 @@
+{
+	"sources": [
+		{
+			"type": "single",
+			"resource": "corners:block/deep_bookshelf_interior_side"
+		},
+		{
+			"type": "single",
+			"resource": "corners:block/deep_bookshelf_interior_top"
+		},
+		{
+			"type": "single",
+			"resource": "corners:block/deep_bookshelf_books"
+		}
+	]
+}

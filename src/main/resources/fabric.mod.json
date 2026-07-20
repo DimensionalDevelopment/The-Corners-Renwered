@@ -37,6 +37,7 @@
 	},
 	"mixins": [
 		"corners.mixins.json",
+		"limlib-specialmodels.mixins.json",
 		"corners-iris.mixins.json",
 		"corners-sodium.mixins.json"
 	],
@@ -58,7 +59,6 @@
 		"fabricloader": "*",
 		"minecraft": "1.21.1",
 		"fabric-api": "*",
-		"limlib": "*",
-		"cloth-config": "*"
+		"limlib": "*"
 	}
 }

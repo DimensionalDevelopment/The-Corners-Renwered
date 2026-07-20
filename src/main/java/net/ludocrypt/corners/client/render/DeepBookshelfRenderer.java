@@ -18,6 +18,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.dimdev.limlib.client.specialmodels.ShaderCallback;
 
 public class DeepBookshelfRenderer implements ShaderCallback {
 

@@ -1,0 +1,17 @@
+accessWidener v1 named
+accessible class net/minecraft/client/renderer/RenderStateShard$LayeringStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$ShaderStateShard
+accessible field net/minecraft/client/renderer/RenderStateShard LIGHTMAP Lnet/minecraft/client/renderer/RenderStateShard$LightmapStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard BLOCK_SHEET_MIPPED Lnet/minecraft/client/renderer/RenderStateShard$TextureStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard NO_TRANSPARENCY Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard MAIN_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+accessible method net/minecraft/world/level/block/Blocks flowerPot (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;
+accessible method net/minecraft/world/level/block/Blocks woodenButton (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/Block;
+extendable method net/minecraft/world/level/block/FenceBlock isSameFence (Lnet/minecraft/world/level/block/state/BlockState;)Z
+mutable field net/minecraft/world/level/block/CrossCollisionBlock shapeByIndex [Lnet/minecraft/world/phys/shapes/VoxelShape;
+#extendable method net/minecraft/world/item/BoatItem getBoat (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/HitResult;)Lnet/minecraft/world/entity/vehicle/Boat;
+accessible field net/minecraft/client/renderer/entity/BoatRenderer boatResources Ljava/util/Map;
+mutable field net/minecraft/client/renderer/entity/BoatRenderer boatResources Ljava/util/Map;
+accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z

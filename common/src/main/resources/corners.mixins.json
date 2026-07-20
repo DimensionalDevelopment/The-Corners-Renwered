@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ludocrypt.corners.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "AbstractDecorationEntityAccessor",
+    "BlockEntityTypeMixin",
+    "BlockMixin",
+    "BoatDispenserBehaviorMixin",
+    "BoatEntityMixin",
+    "EntityMixin",
+    "PaintingEntityAccessor",
+    "ServerPlayerEntityMixin",
+    "ServerWorldMixin",
+    "SignTypeAccessor",
+    "SnowBlockMixin"
+  ],
+  "client": [
+    "BackgroundRendererMixin",
+    "FrustumAccessor",
+    "GameRendererAccessor",
+    "MinecraftClientAccessor",
+    "MinecraftClientMixin",
+    "MusicTrackerMixin",
+    "SoundManagerAccessor",
+    "WorldRendererAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}

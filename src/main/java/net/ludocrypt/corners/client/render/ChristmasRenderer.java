@@ -11,6 +11,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.util.Mth;
+import org.dimdev.limlib.client.specialmodels.ShaderCallback;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 

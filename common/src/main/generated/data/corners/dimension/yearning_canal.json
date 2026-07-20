@@ -1,0 +1,60 @@
+{
+  "type": "corners:yearning_canal",
+  "generator": {
+    "type": "corners:yearning_canal_chunk_generator",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "corners:yearning_canal"
+    },
+    "group": {
+      "groups": {
+        "yearning_canal": [
+          "yearning_canal_1",
+          "yearning_canal_2",
+          "yearning_canal_3",
+          "yearning_canal_4",
+          "yearning_canal_5",
+          "yearning_canal_6",
+          "yearning_canal_7",
+          "yearning_canal_8",
+          "yearning_canal_9",
+          "yearning_canal_10",
+          "yearning_canal_11",
+          "yearning_canal_12",
+          "yearning_canal_13",
+          "yearning_canal_14"
+        ],
+        "yearning_canal_bottom": [
+          "yearning_canal_bottom"
+        ],
+        "yearning_canal_hallway": [
+          "yearning_canal_hallway"
+        ],
+        "yearning_canal_hallway_connected": [
+          "yearning_canal_hallway_connected"
+        ],
+        "yearning_canal_hallway_decorated": [
+          "yearning_canal_hallway_decorated_1",
+          "yearning_canal_hallway_decorated_2",
+          "yearning_canal_hallway_decorated_3",
+          "yearning_canal_hallway_decorated_4",
+          "yearning_canal_hallway_decorated_5",
+          "yearning_canal_hallway_decorated_6",
+          "yearning_canal_hallway_decorated_7",
+          "yearning_canal_hallway_decorated_8",
+          "yearning_canal_hallway_decorated_9",
+          "yearning_canal_hallway_decorated_10",
+          "yearning_canal_hallway_decorated_11",
+          "yearning_canal_hallway_decorated_12"
+        ],
+        "yearning_canal_top": [
+          "yearning_canal_top"
+        ],
+        "yearning_canal_with_hallway": [
+          "yearning_canal_with_hallway"
+        ]
+      },
+      "id": "corners:yearning_canal"
+    }
+  }
+}

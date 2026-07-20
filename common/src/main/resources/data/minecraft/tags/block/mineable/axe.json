@@ -1,0 +1,11 @@
+{
+	"replace": false,
+	"values": [
+		"corners:wooden_radio",
+		"corners:tuned_radio",
+		"corners:broken_radio",
+		"corners:grown_radio",
+		"corners:drywall",
+		"corners:deep_bookshelf"
+	]
+}

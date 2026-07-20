@@ -1,0 +1,26 @@
+{
+  "carvers": {},
+  "downfall": 1.0,
+  "effects": {
+    "ambient_sound": "corners:biome.hoary_crossroads.loop",
+    "fog_color": 13224908,
+    "grass_color": 6796479,
+    "sky_color": 16777215,
+    "water_color": 9681663,
+    "water_fog_color": 7243242
+  },
+  "features": [],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -1.0
+}

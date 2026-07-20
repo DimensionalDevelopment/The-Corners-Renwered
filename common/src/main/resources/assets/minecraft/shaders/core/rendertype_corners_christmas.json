@@ -1,0 +1,324 @@
+{
+	"blend": {
+		"func": "add",
+		"srcrgb": "srcalpha",
+		"dstrgb": "1-srcalpha"
+	},
+	"vertex": "rendertype_corners_christmas",
+	"fragment": "rendertype_corners_christmas",
+	"attributes": [
+		"Position",
+		"Color",
+		"UV0",
+		"UV1",
+		"UV2",
+		"Normal"
+	],
+	"samplers": [
+		{
+			"name": "Sampler0"
+		},
+		{
+			"name": "Sampler2"
+		},
+		{
+			"name": "Twinkle0"
+		},
+		{
+			"name": "Twinkle1"
+		},
+		{
+			"name": "Twinkle2"
+		},
+		{
+			"name": "Light0"
+		},
+		{
+			"name": "Light1"
+		},
+		{
+			"name": "Light2"
+		},
+		{
+			"name": "Light3"
+		},
+		{
+			"name": "Light4"
+		},
+		{
+			"name": "Light5"
+		}
+	],
+	"uniforms": [
+		{
+			"name": "ModelViewMat",
+			"type": "matrix4x4",
+			"count": 16,
+			"values": [
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0
+			]
+		},
+		{
+			"name": "ProjMat",
+			"type": "matrix4x4",
+			"count": 16,
+			"values": [
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0
+			]
+		},
+		{
+			"name": "RotMat",
+			"type": "matrix4x4",
+			"count": 16,
+			"values": [
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0
+			]
+		},
+		{
+			"name": "ChunkOffset",
+			"type": "float",
+			"count": 3,
+			"values": [
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "FogStart",
+			"type": "float",
+			"count": 1,
+			"values": [
+				0.0
+			]
+		},
+		{
+			"name": "FogEnd",
+			"type": "float",
+			"count": 1,
+			"values": [
+				1.0
+			]
+		},
+		{
+			"name": "FogColor",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "FogShape",
+			"type": "int",
+			"count": 1,
+			"values": [
+				0
+			]
+		},
+		{
+			"name": "christmas",
+			"type": "int",
+			"count": 1,
+			"values": [
+				0
+			]
+		},
+		{
+			"name": "leftTint0",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "rightTint0",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "leftTint1",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "rightTint1",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "leftTint2",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "rightTint2",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "leftTint3",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "rightTint3",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "leftTint4",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "rightTint4",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "leftTint5",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "rightTint5",
+			"type": "float",
+			"count": 4,
+			"values": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			]
+		},
+		{
+			"name": "gaze",
+			"type": "float",
+			"count": 1,
+			"values": [
+				0.0
+			]
+		},
+		{
+			"name": "GameTime",
+			"type": "float",
+			"count": 1,
+			"values": [
+				0.0
+			]
+		}
+	]
+}

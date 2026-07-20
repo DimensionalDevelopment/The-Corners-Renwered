@@ -1,0 +1,7 @@
+{
+  "reverb": {
+    "type": "limlib:static",
+    "decay_time": 2.15,
+    "density": 0.0725
+  }
+}

@@ -16,6 +16,8 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.PaintingRenderer;
+import org.dimdev.limlib.client.specialmodels.SpecialModelLoadingPlugin;
+import org.dimdev.limlib.client.specialmodels.SpecialModelShaders;
 
 public class TheCornersClient implements ClientModInitializer {
 
@@ -42,9 +44,9 @@ public class TheCornersClient implements ClientModInitializer {
 			.registerModelLayer(CornerBoatEntityRenderer.getModelLayer(CornerBoat.GAIA, true),
 				() -> ChestBoatModel.createBodyModel());
 
-        TheCornersModelPlugin.init();
+        SpecialModelLoadingPlugin.init();
         CornerModelRenderers.init();
-        TheCornersShaders.init();
+        SpecialModelShaders.init();
 	}
 
 }
