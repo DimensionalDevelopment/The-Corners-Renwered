@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.util;
+package org.dimdev.corners.util;
 
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;

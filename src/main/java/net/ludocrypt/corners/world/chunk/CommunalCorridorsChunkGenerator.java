@@ -1,15 +1,15 @@
-package net.ludocrypt.corners.world.chunk;
+package org.dimdev.corners.world.chunk;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.block.RadioBlock;
-import net.ludocrypt.corners.init.CornerBlocks;
-import net.ludocrypt.corners.init.CornerWorlds;
-import net.ludocrypt.corners.world.maze.GrandMazeGenerator;
-import net.ludocrypt.corners.world.maze.StraightDepthFirstMaze;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.block.RadioBlock;
+import org.dimdev.corners.init.CornerBlocks;
+import org.dimdev.corners.init.CornerWorlds;
+import org.dimdev.corners.world.maze.GrandMazeGenerator;
+import org.dimdev.corners.world.maze.StraightDepthFirstMaze;
 import net.ludocrypt.limlib.api.world.LimlibHelper;
 import net.ludocrypt.limlib.api.world.Manipulation;
 import net.ludocrypt.limlib.api.world.NbtGroup;

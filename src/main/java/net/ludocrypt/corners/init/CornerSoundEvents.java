@@ -1,6 +1,6 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
-import net.ludocrypt.corners.TheCorners;
+import org.dimdev.corners.TheCorners;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

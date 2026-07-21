@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.world.maze;
+package org.dimdev.corners.world.maze;
 
 import java.util.HashMap;
 

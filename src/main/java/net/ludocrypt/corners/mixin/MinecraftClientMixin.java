@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.mixin;
+package org.dimdev.corners.mixin;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.mojang.blaze3d.platform.Window;
-import net.ludocrypt.corners.config.CornerConfig;
-import net.ludocrypt.corners.init.CornerSoundEvents;
-import net.ludocrypt.corners.init.CornerWorlds;
+import org.dimdev.corners.config.CornerConfig;
+import org.dimdev.corners.init.CornerSoundEvents;
+import org.dimdev.corners.init.CornerWorlds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;

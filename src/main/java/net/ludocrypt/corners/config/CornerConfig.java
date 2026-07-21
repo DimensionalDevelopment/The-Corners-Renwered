@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.config;
+package org.dimdev.corners.config;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -11,7 +11,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import net.ludocrypt.corners.client.render.ChristmasRenderer;
+import org.dimdev.corners.client.render.ChristmasRenderer;
 
 @Config(name = "the_corners")
 public class CornerConfig implements ConfigData {

@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.mixin;
+package org.dimdev.corners.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

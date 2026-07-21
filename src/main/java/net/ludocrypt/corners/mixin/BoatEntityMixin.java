@@ -1,6 +1,6 @@
-package net.ludocrypt.corners.mixin;
+package org.dimdev.corners.mixin;
 
-import net.ludocrypt.corners.entity.CornerBoatWithData;
+import org.dimdev.corners.entity.CornerBoatWithData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;

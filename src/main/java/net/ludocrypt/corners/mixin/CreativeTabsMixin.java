@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.mixin;
+package org.dimdev.corners.mixin;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;

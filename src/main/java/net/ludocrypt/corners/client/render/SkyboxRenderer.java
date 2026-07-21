@@ -1,12 +1,12 @@
-package net.ludocrypt.corners.client.render;
+package org.dimdev.corners.client.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.mixin.GameRendererAccessor;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.mixin.GameRendererAccessor;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;

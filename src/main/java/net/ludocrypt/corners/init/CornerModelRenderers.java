@@ -1,9 +1,9 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.client.render.ChristmasRenderer;
-import net.ludocrypt.corners.client.render.DeepBookshelfRenderer;
-import net.ludocrypt.corners.client.render.SkyboxRenderer;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.client.render.ChristmasRenderer;
+import org.dimdev.corners.client.render.DeepBookshelfRenderer;
+import org.dimdev.corners.client.render.SkyboxRenderer;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.resources.ResourceLocation;
 import org.dimdev.limlib.client.specialmodels.ShaderCallback;

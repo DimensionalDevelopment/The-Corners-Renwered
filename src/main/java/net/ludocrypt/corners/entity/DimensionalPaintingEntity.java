@@ -1,11 +1,11 @@
-package net.ludocrypt.corners.entity;
+package org.dimdev.corners.entity;
 
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.init.CornerEntities;
-import net.ludocrypt.corners.init.CornerPaintings;
-import net.ludocrypt.corners.init.CornerSoundEvents;
-import net.ludocrypt.corners.mixin.AbstractDecorationEntityAccessor;
-import net.ludocrypt.corners.mixin.PaintingEntityAccessor;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.init.CornerEntities;
+import org.dimdev.corners.init.CornerPaintings;
+import org.dimdev.corners.init.CornerSoundEvents;
+import org.dimdev.corners.mixin.AbstractDecorationEntityAccessor;
+import org.dimdev.corners.mixin.PaintingEntityAccessor;
 import net.ludocrypt.limlib.api.LimlibTravelling;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

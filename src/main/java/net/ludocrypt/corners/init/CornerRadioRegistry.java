@@ -1,9 +1,9 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.util.RadioSoundTable;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.util.RadioSoundTable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;

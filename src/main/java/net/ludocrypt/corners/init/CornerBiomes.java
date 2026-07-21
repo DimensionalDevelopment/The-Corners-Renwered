@@ -1,10 +1,10 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
 import com.mojang.serialization.MapCodec;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.world.chunk.CommunalCorridorsChunkGenerator;
-import net.ludocrypt.corners.world.chunk.HoaryCrossroadsChunkGenerator;
-import net.ludocrypt.corners.world.chunk.YearningCanalChunkGenerator;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.world.chunk.CommunalCorridorsChunkGenerator;
+import org.dimdev.corners.world.chunk.HoaryCrossroadsChunkGenerator;
+import org.dimdev.corners.world.chunk.YearningCanalChunkGenerator;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

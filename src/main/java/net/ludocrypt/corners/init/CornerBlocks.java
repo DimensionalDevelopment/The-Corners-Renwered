@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -6,12 +6,12 @@ import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.block.*;
-import net.ludocrypt.corners.entity.CornerBoatDispensorBehavior;
-import net.ludocrypt.corners.entity.CornerBoatEntity.CornerBoat;
-import net.ludocrypt.corners.mixin.SignTypeAccessor;
-import net.ludocrypt.corners.world.feature.GaiaSaplingGenerator;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.block.*;
+import org.dimdev.corners.entity.CornerBoatDispensorBehavior;
+import org.dimdev.corners.entity.CornerBoatEntity.CornerBoat;
+import org.dimdev.corners.mixin.SignTypeAccessor;
+import org.dimdev.corners.world.feature.GaiaSaplingGenerator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

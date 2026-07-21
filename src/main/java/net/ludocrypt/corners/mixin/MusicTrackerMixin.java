@@ -1,8 +1,8 @@
-package net.ludocrypt.corners.mixin;
+package org.dimdev.corners.mixin;
 
 import com.google.common.collect.Lists;
-import net.ludocrypt.corners.access.MusicTrackerAccess;
-import net.ludocrypt.corners.config.CornerConfig;
+import org.dimdev.corners.access.MusicTrackerAccess;
+import org.dimdev.corners.config.CornerConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.MusicManager;
 import net.minecraft.core.BlockPos;

@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.datagen;
+package org.dimdev.corners.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.ludocrypt.corners.TheCorners;
+import org.dimdev.corners.TheCorners;
 import net.ludocrypt.limlib.api.LimLibRegistries;
 import net.ludocrypt.limlib.api.effects.sound.SoundEffects;
 import net.minecraft.advancements.*;

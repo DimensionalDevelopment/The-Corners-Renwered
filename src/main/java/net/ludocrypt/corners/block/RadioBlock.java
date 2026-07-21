@@ -1,11 +1,11 @@
-package net.ludocrypt.corners.block;
+package org.dimdev.corners.block;
 
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.ludocrypt.corners.packet.PlayRadio;
-import net.ludocrypt.corners.world.feature.GaiaSaplingGenerator;
+import org.dimdev.corners.packet.PlayRadio;
+import org.dimdev.corners.world.feature.GaiaSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

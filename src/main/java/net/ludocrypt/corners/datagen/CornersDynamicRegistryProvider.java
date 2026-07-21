@@ -1,20 +1,20 @@
-package net.ludocrypt.corners.datagen;
+package org.dimdev.corners.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.client.render.StrongPostEffect;
-import net.ludocrypt.corners.init.CornerBiomes;
-import net.ludocrypt.corners.init.CornerBlocks;
-import net.ludocrypt.corners.init.CornerPaintings;
-import net.ludocrypt.corners.init.CornerSoundEvents;
-import net.ludocrypt.corners.world.biome.CommunalCorridorsBiome;
-import net.ludocrypt.corners.world.biome.HoaryCrossroadsBiome;
-import net.ludocrypt.corners.world.biome.YearningCanalBiome;
-import net.ludocrypt.corners.world.chunk.CommunalCorridorsChunkGenerator;
-import net.ludocrypt.corners.world.chunk.HoaryCrossroadsChunkGenerator;
-import net.ludocrypt.corners.world.chunk.YearningCanalChunkGenerator;
-import net.ludocrypt.corners.world.feature.GaiaTreeFeature;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.client.render.StrongPostEffect;
+import org.dimdev.corners.init.CornerBiomes;
+import org.dimdev.corners.init.CornerBlocks;
+import org.dimdev.corners.init.CornerPaintings;
+import org.dimdev.corners.init.CornerSoundEvents;
+import org.dimdev.corners.world.biome.CommunalCorridorsBiome;
+import org.dimdev.corners.world.biome.HoaryCrossroadsBiome;
+import org.dimdev.corners.world.biome.YearningCanalBiome;
+import org.dimdev.corners.world.chunk.CommunalCorridorsChunkGenerator;
+import org.dimdev.corners.world.chunk.HoaryCrossroadsChunkGenerator;
+import org.dimdev.corners.world.chunk.YearningCanalChunkGenerator;
+import org.dimdev.corners.world.feature.GaiaTreeFeature;
 import net.ludocrypt.limlib.api.LimLibRegistries;
 import net.ludocrypt.limlib.api.effects.post.PostEffect;
 import net.ludocrypt.limlib.api.effects.post.StaticPostEffect;
@@ -57,8 +57,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-
-import static net.ludocrypt.corners.init.CornerWorlds.*;
 
 public class CornersDynamicRegistryProvider {
 

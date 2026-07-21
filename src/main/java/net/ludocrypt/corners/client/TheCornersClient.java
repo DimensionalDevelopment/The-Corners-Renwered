@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.client;
+package org.dimdev.corners.client;
 
 import net.fabricmc.api.ClientModInitializer;
 
@@ -6,12 +6,12 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.impl.client.rendering.EntityRendererRegistryImpl;
-import net.ludocrypt.corners.client.render.CornerBoatEntityRenderer;
-import net.ludocrypt.corners.entity.CornerBoatEntity.CornerBoat;
-import net.ludocrypt.corners.init.CornerBlocks;
-import net.ludocrypt.corners.init.CornerEntities;
-import net.ludocrypt.corners.init.CornerModelRenderers;
-import net.ludocrypt.corners.packet.ServerToClientPackets;
+import org.dimdev.corners.client.render.CornerBoatEntityRenderer;
+import org.dimdev.corners.entity.CornerBoatEntity.CornerBoat;
+import org.dimdev.corners.init.CornerBlocks;
+import org.dimdev.corners.init.CornerEntities;
+import org.dimdev.corners.init.CornerModelRenderers;
+import org.dimdev.corners.packet.ServerToClientPackets;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.renderer.RenderType;

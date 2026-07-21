@@ -1,14 +1,14 @@
-package net.ludocrypt.corners.packet;
+package org.dimdev.corners.packet;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.ludocrypt.corners.access.MusicTrackerAccess;
-import net.ludocrypt.corners.client.sound.LoopingPositionedSoundInstance;
-import net.ludocrypt.corners.init.CornerBlocks;
-import net.ludocrypt.corners.init.CornerPaintings;
-import net.ludocrypt.corners.init.CornerRadioRegistry;
-import net.ludocrypt.corners.mixin.SoundManagerAccessor;
-import net.ludocrypt.corners.util.DimensionalPaintingTeleportLogic;
-import net.ludocrypt.corners.util.RadioSoundTable;
+import org.dimdev.corners.access.MusicTrackerAccess;
+import org.dimdev.corners.client.sound.LoopingPositionedSoundInstance;
+import org.dimdev.corners.init.CornerBlocks;
+import org.dimdev.corners.init.CornerPaintings;
+import org.dimdev.corners.init.CornerRadioRegistry;
+import org.dimdev.corners.mixin.SoundManagerAccessor;
+import org.dimdev.corners.util.DimensionalPaintingTeleportLogic;
+import org.dimdev.corners.util.RadioSoundTable;
 import net.ludocrypt.limlib.impl.access.SoundSystemAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

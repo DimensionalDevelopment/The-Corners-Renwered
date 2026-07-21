@@ -1,7 +1,7 @@
-package net.ludocrypt.corners;
+package org.dimdev.corners;
 
 import net.fabricmc.api.ModInitializer;
-import net.ludocrypt.corners.world.feature.GaiaTreeFeature;
+import org.dimdev.corners.world.feature.GaiaTreeFeature;
 import net.ludocrypt.limlib.api.LimLibRegistries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -10,16 +10,16 @@ import org.apache.logging.log4j.Logger;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.ludocrypt.corners.client.render.StrongPostEffect;
-import net.ludocrypt.corners.config.CornerConfig;
-import net.ludocrypt.corners.init.CornerBiomes;
-import net.ludocrypt.corners.init.CornerBlocks;
-import net.ludocrypt.corners.init.CornerEntities;
-import net.ludocrypt.corners.init.CornerModelRenderers;
-import net.ludocrypt.corners.init.CornerPaintings;
-import net.ludocrypt.corners.init.CornerRadioRegistry;
-import net.ludocrypt.corners.init.CornerSoundEvents;
-import net.ludocrypt.corners.packet.ClientToServerPackets;
+import org.dimdev.corners.client.render.StrongPostEffect;
+import org.dimdev.corners.config.CornerConfig;
+import org.dimdev.corners.init.CornerBiomes;
+import org.dimdev.corners.init.CornerBlocks;
+import org.dimdev.corners.init.CornerEntities;
+import org.dimdev.corners.init.CornerModelRenderers;
+import org.dimdev.corners.init.CornerPaintings;
+import org.dimdev.corners.init.CornerRadioRegistry;
+import org.dimdev.corners.init.CornerSoundEvents;
+import org.dimdev.corners.packet.ClientToServerPackets;
 import net.ludocrypt.limlib.api.effects.post.PostEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;

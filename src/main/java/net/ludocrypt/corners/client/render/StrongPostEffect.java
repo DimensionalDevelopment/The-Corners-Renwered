@@ -1,8 +1,8 @@
-package net.ludocrypt.corners.client.render;
+package org.dimdev.corners.client.render;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.ludocrypt.corners.config.CornerConfig;
+import org.dimdev.corners.config.CornerConfig;
 import net.ludocrypt.limlib.api.effects.post.PostEffect;
 import net.minecraft.resources.ResourceLocation;
 

@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.mixin;
+package org.dimdev.corners.mixin;
 
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,9 +1,9 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.entity.CornerBoatEntity.CornerBoat;
-import net.ludocrypt.corners.entity.DimensionalPaintingEntity;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.entity.CornerBoatEntity.CornerBoat;
+import org.dimdev.corners.entity.DimensionalPaintingEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;

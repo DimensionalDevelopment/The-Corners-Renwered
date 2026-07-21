@@ -1,8 +1,8 @@
-package net.ludocrypt.corners.init;
+package org.dimdev.corners.init;
 
-import net.ludocrypt.corners.TheCorners;
-import net.ludocrypt.corners.entity.DimensionalPaintingEntity;
-import net.ludocrypt.corners.util.DimensionalPaintingTeleportLogic;
+import org.dimdev.corners.TheCorners;
+import org.dimdev.corners.entity.DimensionalPaintingEntity;
+import org.dimdev.corners.util.DimensionalPaintingTeleportLogic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.registries.Registries;

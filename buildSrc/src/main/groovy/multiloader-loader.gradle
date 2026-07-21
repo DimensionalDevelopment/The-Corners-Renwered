@@ -2,6 +2,45 @@ plugins {
     id 'multiloader-common'
 }
 
+def trimmedMusicExcludes = [
+        'assets/corners/sounds/music/**',
+        'assets/corners/sounds/radio/music/**'
+]
+
+def buildTrimmedTask = tasks.register('buildTrimmed') {
+    group = 'build'
+    description = 'Builds a lighter test jar with bulky music assets removed.'
+}
+
+def registerTrimmedJar = { TaskProvider sourceJarTask ->
+    def trimmedJarTask = tasks.register('trimmedJar', Jar) {
+        group = 'build'
+        description = 'Assembles a lighter test jar with bulky music assets removed.'
+
+        dependsOn(sourceJarTask)
+
+        destinationDirectory = rootProject.layout.buildDirectory.dir('trimmed')
+        archiveFileName = sourceJarTask.flatMap { it.archiveFile }.map { sourceJar ->
+            sourceJar.asFile.name.replaceFirst(/\.jar$/, '_trimmed.jar')
+        }
+
+        from({ zipTree(sourceJarTask.get().archiveFile.get().asFile) })
+        exclude(trimmedMusicExcludes)
+    }
+
+    buildTrimmedTask.configure {
+        dependsOn(trimmedJarTask)
+    }
+}
+
+plugins.withId('fabric-loom') {
+    registerTrimmedJar(tasks.named('remapJar'))
+}
+
+plugins.withId('net.neoforged.moddev') {
+    registerTrimmedJar(tasks.named('jar'))
+}
+
 configurations {
     commonJava{
         canBeResolved = true

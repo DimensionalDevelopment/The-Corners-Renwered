@@ -1,7 +1,7 @@
-package net.ludocrypt.corners.packet;
+package org.dimdev.corners.packet;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.ludocrypt.corners.TheCorners;
+import org.dimdev.corners.TheCorners;
 import net.minecraft.resources.ResourceLocation;
 
 public class ClientToServerPackets {

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.dimdev.corners.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "FabricDynamicRegistryProviderMixin"
+  ],
+  "refmap": "corners.refmap.json",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

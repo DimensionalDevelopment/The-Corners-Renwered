@@ -23,16 +23,16 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.ludocrypt.corners.TheCorners"
+			"org.dimdev.corners.TheCorners"
 		],
 		"client": [
-			"net.ludocrypt.corners.client.TheCornersClient"
+			"org.dimdev.corners.client.TheCornersClient"
 		],
 		"modmenu": [
-			"net.ludocrypt.corners.config.CornerModmenu"
+			"org.dimdev.corners.config.CornerModmenu"
 		],
         "fabric-datagen": [
-          "net.ludocrypt.corners.datagen.CornersDatagen"
+          "org.dimdev.corners.datagen.CornersDatagen"
         ]
 	},
 	"mixins": [

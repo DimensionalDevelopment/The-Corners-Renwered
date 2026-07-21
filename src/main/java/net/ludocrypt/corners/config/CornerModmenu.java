@@ -1,4 +1,4 @@
-package net.ludocrypt.corners.config;
+package org.dimdev.corners.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
