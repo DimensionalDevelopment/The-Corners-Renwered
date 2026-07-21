@@ -5,9 +5,4 @@ import org.dimdev.limlib.api.client.IClientSided;
 import org.jetbrains.annotations.Nullable;
 
 public interface CornersClientSided<T extends CornersClientSided<T>> extends IClientSided<T> {
-
-    void registerSpecialModelLoadingPlugin();
-
-    @Nullable
-    BakedModel getWrappedBakedModel(BakedModel model);
 }

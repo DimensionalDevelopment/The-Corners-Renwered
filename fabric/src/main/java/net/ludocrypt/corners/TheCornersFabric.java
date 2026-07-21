@@ -23,11 +23,6 @@ public class TheCornersFabric extends FabricSided<TheCornersFabric, TheCorners> 
 	}
 
 	@Override
-	public String getModId() {
-		return "corners";
-	}
-
-	@Override
 	public void onInitializeServer() {
 		StrongPostEffect.getType();
 	}

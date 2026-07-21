@@ -7,7 +7,6 @@ import net.ludocrypt.corners.entity.CornerBoatEntity.CornerBoat;
 import net.ludocrypt.corners.init.CornerBlocks;
 import net.ludocrypt.corners.init.CornerEntities;
 import net.ludocrypt.corners.init.CornerModelRenderers;
-import net.ludocrypt.corners.packet.ServerToClientPackets;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -36,7 +35,6 @@ public class TheCornersClient implements ModClient<CornersClientSided<?>> {
 	public void init(CornersClientSided<?> sided) {
 		this.sided = sided;
 
-		SpecialModelLoadingPlugin.init(sided);
         CornerModelRenderers.init();
 	}
 
@@ -63,15 +61,6 @@ public class TheCornersClient implements ModClient<CornersClientSided<?>> {
 //		consumer.accept(CorvusEntityModel.LAYER_LOCATION, () -> CorvusEntityModel.createBodyLayer());
 		consumer.accept(CornerBoatEntityRenderer.getModelLayer(CornerBoat.GAIA, true), ChestBoatModel::createBodyModel);
 	}
-
-	@Override
-	public void initShaders(TriConsumer<ResourceLocation, VertexFormat, Consumer<ShaderInstance>> shaderRegister) {
-        try {
-            SpecialModelShaderRegistry.registerCoreShaders(shaderRegister);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 	@Override
 	public String getModId() {

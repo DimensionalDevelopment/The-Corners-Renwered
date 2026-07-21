@@ -20,10 +20,7 @@ public class CornerModelRenderers {
 	public static final ShaderCallback DEEP_BOOKSHELF_RENDERER = new DeepBookshelfRenderer();
 
 	public static void init() {
-		SpecialModelShaderRegistry.register(SNOWY_SKYBOX, ResourceLocation.withDefaultNamespace("rendertype_corners_christmas"),
-			SNOWY_SKYBOX_RENDERER);
-		SpecialModelShaderRegistry
-			.register(DEEP_BOOKSHELF, ResourceLocation.withDefaultNamespace("rendertype_corners_deep_bookshelf"),
-				DefaultVertexFormat.NEW_ENTITY, DEEP_BOOKSHELF_RENDERER);
+		SpecialModelShaderRegistry.register(SNOWY_SKYBOX, ResourceLocation.withDefaultNamespace("rendertype_corners_christmas"), SNOWY_SKYBOX_RENDERER);
+		SpecialModelShaderRegistry.register(DEEP_BOOKSHELF, ResourceLocation.withDefaultNamespace("rendertype_corners_deep_bookshelf"), DefaultVertexFormat.NEW_ENTITY, DEEP_BOOKSHELF_RENDERER);
 	}
 }
