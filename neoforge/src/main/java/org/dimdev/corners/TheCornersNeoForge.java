@@ -29,9 +29,9 @@ public class TheCornersNeoForge extends NeoForgeSided<TheCornersNeoForge, TheCor
 
 	public TheCornersNeoForge(IEventBus bus) {
 		super(bus, new TheCorners());
-		ModLoadingContext.get().registerExtensionPoint(
-			IConfigScreenFactory.class,
-			() -> (minecraft, parent) -> ModConfigScreen.createScreen(parent));
+		if (TheCorners.getSided().isModLoaded("cloth-config")) {
+			ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (minecraft, parent) -> ModConfigScreen.createScreen(parent));
+		}
 	}
 
 

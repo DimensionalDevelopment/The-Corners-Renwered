@@ -31,6 +31,6 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "limlib"
 type = "required"
-versionRange = "${limlib_version}"
+versionRange = "[${limlib_version},)"
 ordering = "NONE"
 side = "BOTH"

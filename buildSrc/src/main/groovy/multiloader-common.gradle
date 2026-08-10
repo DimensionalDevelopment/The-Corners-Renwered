@@ -13,13 +13,7 @@ java {
     withJavadocJar()
 }
 
-kotlin {
-    jvmToolchain(Integer.parseInt(java_version.toString()))
-}
-
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
-    api "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
 }
 
 repositories {

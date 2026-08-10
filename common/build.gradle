@@ -1,5 +1,4 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
     id 'multiloader-common'
     id 'net.neoforged.moddev'
 }
@@ -43,10 +42,6 @@ configurations {
         canBeResolved = false
         canBeConsumed = true
     }
-    commonKotlin {
-        canBeResolved = false
-        canBeConsumed = true
-    }
     commonResources {
         canBeResolved = false
         canBeConsumed = true
@@ -55,6 +50,5 @@ configurations {
 
 artifacts {
     commonJava sourceSets.main.java.sourceDirectories.singleFile
-    commonKotlin file('src/main/kotlin')
     commonResources sourceSets.main.resources.sourceDirectories.singleFile
 }
